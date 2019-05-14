@@ -67,13 +67,15 @@ class Player(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     year_of_birth = models.IntegerField()
+    mail = models.EmailField(null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
     club = models.CharField(max_length=200)
     position = models.IntegerField(choices=POSITION)
     status = models.IntegerField(choices=STATUS)
-    agent = models.TextField(verbose_name='Kontakt z agentem')
-    other1 = models.TextField(verbose_name='Uwagi')
-    other2 = models.TextField(verbose_name='Uwagi')
-    other3 = models.TextField(verbose_name='Uwagi')
+    agent = models.TextField(verbose_name='Kontakt z agentem', null=True, blank=True)
+    other1 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
+    other2 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
+    other3 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
 
 
 class ObservationForm(models.Model):

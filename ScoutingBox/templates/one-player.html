@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block container %}
+    <div class="container">
+    <h2 class="mt-4">{{ player.first_name }} {{ player.last_name }} </h2>
+        <ul class="list-group list-group-flush mt-4">
+          <li class="list-group-item">Dane kontaktowe:</li>
+          <li class="list-group-item">{{ player.mail }}</li>
+          <li class="list-group-item">{{ player.phone }}</li>
+        </ul>
+        <ul class="list-group list-group-flush mt-4">
+          <li class="list-group-item">Rocznik: {{ player.year_of_birth }}</li>
+          <li class="list-group-item">Klub: {{ player.club }}</li>
+          <li class="list-group-item">Pozycja: {{ player.get_position_display }}</li>
+          <li class="list-group-item">Status: {{ player.get_status_display }}</li>
+          <li class="list-group-item">Edytuj zawodnika</li>
+    </ul>
+    </div>
+{% endblock %}

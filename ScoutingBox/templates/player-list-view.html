@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block container %}
+    <div class="container-fluid">
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Imię</th>
+              <th scope="col">Nazwisko</th>
+              <th scope="col">Rocznik</th>
+              <th scope="col">Klub</th>
+              <th scope="col">Pozycja</th>
+              <th scope="col">Status</th>
+              <th scope="col">Agent</th>
+              <th scope="col">Uwagi</th>
+              <th scope="col">Uwagi</th>
+              <th scope="col">Uwagi</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for player in players %}
+            <tr>
+              <th scope="row">{{ player.id }}</th>
+              <td>{{ player.first_name }}</td>
+              <td>{{ player.last_name }}</td>
+              <td>{{ player.year_of_birth }}</td>
+              <td>{{ player.club }}</td>
+              <td>{{ player.get_position_display }}</td>
+              <td>{{ player.get_status_display }}</td>
+              <td>{{ player.agent }}</td>
+              <td>{{ player.other1 }}</td>
+              <td>{{ player.other2 }}</td>
+              <td>{{ player.other3 }}</td>
+            </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+    </div>
+{% endblock %}
