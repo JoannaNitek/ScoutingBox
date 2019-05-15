@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block container %}
+<div class="container-fluid mt-6">
+
+  <div class="row mx-auto my-5">
+    <div class="col">
+
+            <div class="list-group">
+      <a href="/players/" type="button" class="list-group-item list-group-item-action">Piłkarze</a>
+      <button type="button" class="list-group-item list-group-item-action">Scouci</button>
+      <button type="button" class="list-group-item list-group-item-action">Kalendarz obserwacji</button>
+      <button type="button" class="list-group-item list-group-item-action">Formularze</button>
+    </div>
+
+    </div>
+    <div class="col">
+
+      Lista zawodników top
+        <table class="table table-striped mt-4">
+          <thead>
+            <tr>
+              <th scope="col">Imię i nazwisko</th>
+              <th scope="col">Rocznik</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for player in players %}
+            <tr>
+              <td>{{ player.first_name }} {{ player.last_name }}</td>
+              <td>{{ player.year_of_birth }}</td>
+              <td>{{ player.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="col">
+      Terminarz
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+{% endblock %}

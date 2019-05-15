@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -60,7 +61,7 @@ class ObservationList(models.Model):
 # jak stworzyć regex
     city = models.CharField(max_length=200)
     country = models.CharField(max_length=200, null=True, blank=True)
-    scout = models.OneToOneField(User, on_delete=models.CASCADE)
+    scout = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
 
 
 class Player(models.Model):
@@ -79,7 +80,7 @@ class Player(models.Model):
 
 
 class ObservationForm(models.Model):
-    scout = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    scout = models.OneToOneField(get_user_model(), on_delete=models.SET_NULL, null=True)
 # nie chcę usuwać danych stąd kiedy usuniemy scouta
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     observation = models.IntegerField(choices=OBSERV)

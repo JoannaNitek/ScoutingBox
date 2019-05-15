@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block container %}
+
+  <div class="row">
+    <div class="col">
+       <div class="container">
+    <h1 class="">{{ player.first_name }} {{ player.last_name }} </h1>
+        <input type="submit" value="Obserwuj" class="btn btn-warning btn-lg">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Dane kontaktowe:</li>
+          <li class="list-group-item">{{ player.mail }}</li>
+          <li class="list-group-item">{{ player.phone }}</li>
+        </ul>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Rocznik: {{ player.year_of_birth }}</li>
+          <li class="list-group-item">Klub: {{ player.club }}</li>
+          <li class="list-group-item">Pozycja: {{ player.get_position_display }}</li>
+          <li class="list-group-item">Status: {{ player.get_status_display }}</li>
+          <li class="list-group-item"><a href=""><button class="btn" style="background-color: #3f51b5; color: #ffeb3b;">Edytuj zawodnika</button> </a></li>
+    </ul>
+    </div>
+
+    </div>
+    <div class="col">
+       <h2>Oceny opisowe</h2>
+    <div class="card border-primary" style="max-width: 18rem;">
+  <div class="card-header" data-toggle="collapse">Pytanie 1</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Scout</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+    <div class="card-body text-primary">
+    <h5 class="card-title">Scout</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+            </div>
+    <div class="col">
+       <h2>Oceny opisowe</h2>
+    <div class="card border-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header" data-toggle="collapse">Pytanie 1</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Scout</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+    <div class="card-body text-primary">
+    <h5 class="card-title">Scout</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+    </div>
+
+
+{% endblock %}

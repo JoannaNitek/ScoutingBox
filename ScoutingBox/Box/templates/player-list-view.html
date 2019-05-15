@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% block container %}
-    <div class="container-fluid">
+    <div class="mx-auto my-5">
+    <div class="row">
+    <div class="col">
+      <a href="/add_player/"><h2>Dodaj piłkarza</h2></a>
+    </div>
+    <div class="col">
+      2 of 2
+    </div>
+  </div>
+
+    </div>
+    <div class="mx-auto my-5">
         <table class="table table-striped mt-4">
-          <thead>
+          <thead style="background-color: #3f51b5; color: #ffeb3b;">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Imię</th>
-              <th scope="col">Nazwisko</th>
+              <th scope="col">Imię i nazwisko</th>
               <th scope="col">Rocznik</th>
               <th scope="col">Klub</th>
               <th scope="col">Pozycja</th>
@@ -21,8 +31,7 @@
           {% for player in players %}
             <tr>
               <th scope="row">{{ player.id }}</th>
-              <td>{{ player.first_name }}</td>
-              <td>{{ player.last_name }}</td>
+                <td><a href="/player/{{ player.id }}">{{ player.first_name }} {{ player.last_name }}</a></td>
               <td>{{ player.year_of_birth }}</td>
               <td>{{ player.club }}</td>
               <td>{{ player.get_position_display }}</td>

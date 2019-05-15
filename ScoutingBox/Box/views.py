@@ -1,15 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views import View
 from django.views.generic import CreateView, DeleteView
-from .models import Player, ObservationForm, ObservationList
-from .forms import PlayerForm
+from .models import Player, ObservationForm, ObservationList, OBSERV
+from .forms import PlayerForm, ObservationFormForm
 
 # Create your views here.
 
-class LoginView(View):
-    pass
 
 class LandingPageView(View):
 
@@ -48,3 +47,7 @@ class PlayerView(View):
                       {'player_id': player_id, 'player':player})
 
 
+class ObservationFormView(View):
+    def get(self, request):
+        form = ObservationFormForm()
+        return render(request, 'form.html', {'form': form})
