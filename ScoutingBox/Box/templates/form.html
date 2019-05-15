@@ -1,6 +1,239 @@
 {% extends 'base.html' %}
 {% block container %}
-{{ form.as_p }}
+    <form action="#" method="post">
+    {% csrf_token %}
+<div class="row mx-auto mt-3 container">
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Piłkarz</label>
+        </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                        {% for play in form.player %}
+
+                <option value="1">{{ play }}</option>
+                {% endfor %}
+            </select>
+    </div>
+
+        <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Rodzaj obserwacji</label>
+        </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                        {% for ob in form.observ %}
+
+                <option value="1">{{ ob }}</option>
+                {% endfor %}
+            </select>
+    </div>
+</div>
+
+<div class="container">
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.1 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.2 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.3 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.4 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.5 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+<div class="input-group mx-auto mt-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="width: 180px">{{ q.6 }}</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+</div>
+
+
+
+<div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.1a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.2a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+</div>
+
+
+<div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.3a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.4a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+</div>
+
+
+<div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.5a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.6a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+</div>
+
+
+<div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.7a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.8a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+</div>
+
+
+<div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.9a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.10a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+</div>
+    <div class="row mx-auto mt-3 container">
+
+    <div class="input-group mb-3 col">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">{{ q.11a }}</label>
+        </div>
+  <select class="custom-select" id="inputGroupSelect01">
+        {% for points in p %}
+    <option value="1">{{ points }}</option>
+        {% endfor %}
+  </select>
+</div>
+
+<input type="submit" value="Wyślij" class="btn" style="background-color: #3f51b5; color: #ffeb3b;">
+
+</div>
+
+
+</form>
+
+
+{% endblock %}
+
+
+
+
+
 {#<form class="mx-auto my-5">#}
 {#------------#}
 {#    <div class="input-group mb-3">#}
@@ -44,9 +277,3 @@
 {#  </div>#}
 {#  <textarea class="form-control" aria-label="With textarea">{{ form.first_desc }}</textarea>#}
 {#</div>#}
-
-    <input type="submit" value="Wyślij">
-</form>
-
-
-{% endblock %}

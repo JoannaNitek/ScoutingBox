@@ -40,28 +40,33 @@ OBSERV = (
     (2, 'Wideo')
 )
 
-
-# class UserData(models.User, AbstractUser):
-#     first_name = models.CharField(max_length=30)
-#     last_name = models.CharField(max_length=150)
-#     email = models.EmailField()
-#     password = models.
-#     user_permissions =
-#     is_active = models.BooleanField(default=True)
-#     last_login = models.DateTimeField(auto_now_add=True)
-#     date_joined = models.DateTimeField(auto_now_add=True)
-#
-#
-#     USERNAME_FIELD = 'email'
+QUESTION = (
+    (1, 'Gra w ofensywie'),
+    (2, 'Gra w defensywie'),
+    (3, 'Gra bez piłki'),
+    (4, 'Cechy wolicjonalne'),
+    (5, 'Inne'),
+    (6, 'Wnioski'),
+     ('1a', 'Technika użytkowa'),
+     ('2a', 'Gra słabszą nogą'),
+     ('3a', 'Siła'),
+     ('4a', 'Koordynacja'),
+     ('5a', 'Przyspieszenie'),
+     ('6a', 'Agresja'),
+     ('7a', 'Odpowiedzialność w grze'),
+     ('8a', 'Skłonność do przecinania linii przeciwnika(wejściem/podaniem)'),
+     ('9a', 'Pracowitość'),
+     ('10a', 'Odbiór piłki'),
+     ('11a', 'Gra w powietrzu'))
 
 
 class ObservationList(models.Model):
     date = models.DateTimeField()
     match = models.CharField(max_length=200)
-# jak stworzyć regex
+    # jak stworzyć regex
     city = models.CharField(max_length=200)
     country = models.CharField(max_length=200, null=True, blank=True)
-    scout = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    scout = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
 
 class Player(models.Model):
@@ -80,7 +85,7 @@ class Player(models.Model):
 
 
 class ObservationForm(models.Model):
-    scout = models.OneToOneField(get_user_model(), on_delete=models.SET_NULL, null=True)
+    scout = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
 # nie chcę usuwać danych stąd kiedy usuniemy scouta
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     observation = models.IntegerField(choices=OBSERV)
@@ -90,14 +95,14 @@ class ObservationForm(models.Model):
     fourth_desc = models.TextField(verbose_name='Cechy wolicjonalne')
     fifth_desc = models.TextField(verbose_name='Inne')
     sixth_desc = models.TextField(verbose_name='Wnioski')
-    one = models.IntegerField(choices=POINTS, verbose_name='Technika użytkowa')
-    two = models.IntegerField(choices=POINTS, verbose_name='Gra słabszą nogą')
-    three = models.IntegerField(choices=POINTS, verbose_name='Siła')
-    four = models.IntegerField(choices=POINTS, verbose_name='Koordynacja')
-    five = models.IntegerField(choices=POINTS, verbose_name='Przyspieszenie')
-    six = models.IntegerField(choices=POINTS, verbose_name='Agresja')
-    seven = models.IntegerField(choices=POINTS, verbose_name='Odpowiedzialność w grze')
-    eight = models.IntegerField(choices=POINTS, verbose_name='Skłonność do przecinania linii przeciwnika(wejściem/podaniem)')
-    nine = models.IntegerField(choices=POINTS, verbose_name='Pracowitość')
-    ten = models.IntegerField(choices=POINTS, verbose_name='Odbiór piłki')
-    eleven = models.IntegerField(choices=POINTS, verbose_name='Gra w powietrzu')
+    one = models.FloatField(choices=POINTS, verbose_name='Technika użytkowa')
+    two = models.FloatField(choices=POINTS, verbose_name='Gra słabszą nogą')
+    three = models.FloatField(choices=POINTS, verbose_name='Siła')
+    four = models.FloatField(choices=POINTS, verbose_name='Koordynacja')
+    five = models.FloatField(choices=POINTS, verbose_name='Przyspieszenie')
+    six = models.FloatField(choices=POINTS, verbose_name='Agresja')
+    seven = models.FloatField(choices=POINTS, verbose_name='Odpowiedzialność w grze')
+    eight = models.FloatField(choices=POINTS, verbose_name='Skłonność do przecinania linii przeciwnika(wejściem/podaniem)')
+    nine = models.FloatField(choices=POINTS, verbose_name='Pracowitość')
+    ten = models.FloatField(choices=POINTS, verbose_name='Odbiór piłki')
+    eleven = models.FloatField(choices=POINTS, verbose_name='Gra w powietrzu')
