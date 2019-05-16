@@ -38,8 +38,7 @@ class ObservationFormForm(forms.ModelForm):
          widget=forms.Select(attrs={'class': 'form-control'}))
     player = forms.ModelChoiceField(queryset=Player.objects.all(), label='Piłkarz',
          widget=forms.Select(attrs={'class': 'form-control'}))
-    # observ = forms.ChoiceField(choices=OBSERV, label='Rodzaj obserwacji',
-    #      widget=forms.Select(attrs={'class': 'form-control'}))
+    observation = forms.ChoiceField(choices=OBSERV, label='Rodzaj obserwacji', widget=forms.Select(attrs={'class': 'form-control'}))
     first_desc = forms.CharField(label='Gra w ofensywie',
         widget=forms.Textarea(attrs={'class': 'form-control'}))
     second_desc = forms.CharField(label='Gra w defensywie',
@@ -83,8 +82,8 @@ class ObservationFormForm(forms.ModelForm):
 
 
 class Calendar(forms.ModelForm):
-    date = forms.CharField(label= 'Data i godzina', widget=forms.TextInput
-        (attrs={'class': 'form-control'}))
+    date = forms.DateTimeField(label= 'Data i godzina', widget=forms.DateTimeInput(format='%m/%d/%Y HH:MM',
+        attrs={'class': 'form-control'}))
     match = forms.CharField(label='Mecz', widget=forms.TextInput
         (attrs={'class': 'form-control'}))
     city = forms.CharField(label='Miasto', widget=forms.TextInput

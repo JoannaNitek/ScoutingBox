@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block container %}
-    <div class="mx-auto my-5">
+    <div class="mx-auto my-3">
     <div class="row">
     <div class="col">
-      <a href="/add_player/"><h2>Dodaj piłkarza</h2></a>
+      <a href="/add_player/"><h4>Dodaj piłkarza</h4></a>
     </div>
     <div class="col">
-      2 of 2
+
     </div>
   </div>
 
     </div>
-    <div class="mx-auto my-5">
+    <div class="mx-auto my-3">
         <table id="table" class="table table-striped mt-4" data-toggle="table">
 
           <thead style="background-color: #3f51b5; color: #ffeb3b;">
@@ -36,14 +36,15 @@
               <td>{{ player.club }}</td>
               <td>{{ player.get_position_display }}</td>
               <td>{{ player.get_status_display }}</td>
-              <td>{{ player.agent }}</td>
-              <td>{{ player.other1 }}</td>
-              <td>{{ player.other2 }}</td>
-              <td>{{ player.other3 }}</td>
+              <td>{{ player.agent|default_if_none:'' }}</td>
+              <td>{{ player.other1|default_if_none:'' }}</td>
+              <td>{{ player.other2|default_if_none:'' }}</td>
+              <td>{{ player.other3|default_if_none:'' }}</td>
             </tr>
            {% endfor %}
           </tbody>
         </table>
+<div class="mb-5"></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="js/table.js"></script>

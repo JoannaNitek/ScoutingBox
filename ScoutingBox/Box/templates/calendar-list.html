@@ -1,4 +1,35 @@
 {% extends 'base.html' %}
 {% block container %}
+<div class="container-fluid mx-auto mt-5">
+<h4 class="container-fluid mx-auto mt-5">Terminarz obserwacji</h4>
+</div>
+<hr>
+<div class="col-2"></div>
+<div class="container-fluid mx-auto mb-5 mt-5">
+    <table class="table" id="table2" data-toggle="table">
+      <thead>
+        <tr>
+          <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
+          <th data-field="match" data-sortable="true" scope="col">Mecz</th>
+          <th data-field="city" data-sortable="true" scope="col">Lokalizacja</th>
+          <th data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in calendar %}
+        <tr>
+          <th scope="row">{{ item.date }}</th>
+          <td>{{ item.match }}</td>
+          <td>{{ item.city }}, {{ item.country }}</td>
+          <td>{{ item.scout }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+    <div class="col-2"></div>
+
+{#    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>#}
+{#    <script src="js/table_ob.js"></script>#}
 
 {% endblock %}

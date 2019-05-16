@@ -61,7 +61,7 @@ QUESTION = (
 
 
 class ObservationList(models.Model):
-    date = models.CharField(max_length=200)
+    date = models.DateTimeField(max_length=200)
     match = models.CharField(max_length=200)
     # jak stworzyć regex
     city = models.CharField(max_length=200)
@@ -82,6 +82,10 @@ class Player(models.Model):
     other1 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
     other2 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
     other3 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 
 
 class ObservationForm(models.Model):
