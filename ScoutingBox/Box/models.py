@@ -61,7 +61,7 @@ QUESTION = (
 
 
 class ObservationList(models.Model):
-    date = models.DateTimeField()
+    date = models.CharField(max_length=200)
     match = models.CharField(max_length=200)
     # jak stworzyć regex
     city = models.CharField(max_length=200)

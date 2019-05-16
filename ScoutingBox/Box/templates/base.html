@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,8 @@
     <nav class="navbar navbar navbar-light navbar-expand-lg" style="background-color: #3f51b5;">
      <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" href="#">
-    <img src="/Box/media/Projekt%20bez%20tytułu.png" height="30" alt="">
+    <img src="/static/logo.png" height="30" alt="">
+      <img src="{% static 'logo.png' %}" height="30" alt="">
   </a>
 </nav>
         <ul class="nav justify-content-end">
@@ -25,7 +27,28 @@
         </ul>
     </nav>
 </div>
+<div class="container-fluid mb-5">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" href="/ScoutingBox/" style="color: #3f51b5;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/players/" style="color: #3f51b5;">Piłkarze</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/calendar/" style="color: #3f51b5;">Terminarz obserwacji</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/calendar_add/" style="color: #3f51b5;">Dodaj obserwację do terminarza</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/form/" style="color: #3f51b5;">Formularz dla obserwacji</a>
+              </li>
+            </ul>
+</div>
     {% block container %}
     {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
 </body>
 </html>

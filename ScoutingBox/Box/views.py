@@ -5,7 +5,7 @@ from django.template.response import TemplateResponse
 from django.views import View
 from django.views.generic import CreateView, DeleteView
 from .models import Player, ObservationForm, ObservationList, OBSERV, POINTS, QUESTION
-from .forms import PlayerForm, ObservationFormForm
+from .forms import PlayerForm, ObservationFormForm, Calendar
 
 # Create your views here.
 
@@ -27,10 +27,9 @@ class AddPlayerView(View):
     def get(self, request):
 
         form = PlayerForm()
-        return render(request, 'add-player.html',
-                      {'form': form})
+        return render(request, 'add-player.html', {'form': form})
 
-    def post(self, request, player_id):
+    def post(self, request):
         form = PlayerForm(request.POST)
         if form.is_valid():
            new_player = form.save()
@@ -133,3 +132,25 @@ class ObservationFormView(View):
             return redirect('/player/{}'.format(new_form.player.id))
         else:
             return render(request, 'form.html', {'form': form})
+
+
+class CalendarList(View):
+
+    def get(self, request):
+        return render(request, 'calendar-list.html')
+
+class CalendarAdd(View):
+
+    def get(self, request):
+        form = Calendar()
+        return render(request, 'calendar-add.html', {'form': form})
+
+
+    def post(self, request):
+        form = Calendar(request.POST)
+        if form.is_valid():
+            new_observation = form.save()
+            return redirect('/calendar/')
+        else:
+            return render(request, 'calendar-add.html', {'form': form})
+

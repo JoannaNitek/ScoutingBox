@@ -12,19 +12,19 @@
 
     </div>
     <div class="mx-auto my-5">
-        <table class="table table-striped mt-4">
+        <table id="table" class="table table-striped mt-4" data-toggle="table">
+
           <thead style="background-color: #3f51b5; color: #ffeb3b;">
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Imię i nazwisko</th>
-              <th scope="col">Rocznik</th>
-              <th scope="col">Klub</th>
-              <th scope="col">Pozycja</th>
-              <th scope="col">Status</th>
-              <th scope="col">Agent</th>
-              <th scope="col">Uwagi</th>
-              <th scope="col">Uwagi</th>
-              <th scope="col">Uwagi</th>
+              <th data-field="name" data-sortable="true" scope="col">Imię i nazwisko</th>
+              <th data-field="year" data-sortable="true"scope="col">Rocznik</th>
+              <th data-field="club" data-sortable="true"scope="col">Klub</th>
+              <th data-field="position" data-sortable="true"scope="col">Pozycja</th>
+              <th data-field="status" data-sortable="true"scope="col">Status</th>
+              <th data-field="agent" data-sortable="true"scope="col">Agent</th>
+              <th data-field="1" data-sortable="true"scope="col">Uwagi</th>
+              <th data-field="2" data-sortable="true"scope="col">Uwagi</th>
+              <th data-field="3" data-sortable="true"scope="col">Uwagi</th>
             </tr>
           </thead>
           <tbody>
@@ -45,4 +45,6 @@
           </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="js/table.js"></script>
 {% endblock %}

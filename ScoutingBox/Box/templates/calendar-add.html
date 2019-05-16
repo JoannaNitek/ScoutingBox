@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block container %}
-    <div class="container">
-        <h2 class="mt-4">Dodaj zawodnika</h2>
+<div class="container">
+        <h2 class="mt-4">Dodaj mecz</h2>
     <form action="#" method="POST" class="mt-4">
         {% csrf_token %}
         {{ form}}
-        <input type="submit" class='btn btn-danger mt-4'>
+        <input type="submit" class='btn mt-4' style="background-color: #3f51b5; color: #ffeb3b;">
     </form>
     </div>
 {% endblock %}
