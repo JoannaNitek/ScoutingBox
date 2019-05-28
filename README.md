@@ -1,6 +1,5 @@
 # ScoutingBox
-![alt text](https://raw.githubusercontent.com/JoannaNitek/ScoutingBox/master/ScoutingBox/Box/static/
-/logoo.png)
+![alt text](https://raw.githubusercontent.com/JoannaNitek/ScoutingBox/master/ScoutingBox/Box/static/logoo.png)
 An application creates for the football club to observe players and create reports about them. 
 Using Django User to create superuser and other users. They log in and register with e-mail address instead of putting username. 
 It requires Django AbstractUser Class and it is much easier and more comfortable. In future can connect with mailing service.<br><br>
