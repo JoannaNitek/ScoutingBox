@@ -1,5 +1,5 @@
 # ScoutingBox
-![alt text](https://raw.githubusercontent.com/JoannaNitek/ScoutingBox/branch/ScoutingBox/ScoutingBox/Box/static/
+![alt text](https://raw.githubusercontent.com/JoannaNitek/ScoutingBox/master/ScoutingBox/Box/static/
 /logoo.png)
 An application creates for the football club to observe players and create reports about them. 
 Using Django User to create superuser and other users. They log in and register with e-mail address instead of putting username. 
