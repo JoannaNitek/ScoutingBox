@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request'
             ],
         },
     },
@@ -128,4 +129,10 @@ redirect_field_name = '/login/'
 
 AUTH_USER_MODEL = 'Users.UserData'
 
-
+# STATICFILES_DIRS = (
+#
+#     # Put strings here, like "/home/html/static" or "C:/www/django/static".
+#     # Always use forward slashes, even on Windows.
+#     # Don't forget to use absolute paths, not relative paths.
+#     'ScoutingBox/Box/static/bootstrap-4.3.1-dist/js/',
+# )

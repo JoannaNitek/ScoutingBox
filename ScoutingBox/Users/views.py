@@ -36,6 +36,7 @@ class LogIn(View):
 
             return HttpResponseRedirect('/ScoutingBox/')
 
+        print("nueprawidlowe haslo")
         return render(request, 'login.html')
 
 class LogOut(View):

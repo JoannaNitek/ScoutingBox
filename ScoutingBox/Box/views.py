@@ -7,15 +7,16 @@ from django.views.generic import CreateView, DeleteView
 from .models import Player, ObservationForm, ObservationList, OBSERV, POINTS, QUESTION
 from .forms import PlayerForm, ObservationFormForm, Calendar
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 
 class LandingPageView(LoginRequiredMixin, View):
     login_url = '/login/'
-    redirect_field_name = '/login/'
 
     def get(self, request):
+
         return render(request, 'landing-page.html', {})
 
 
@@ -24,7 +25,11 @@ class PlayerListView(LoginRequiredMixin, View):
     redirect_field_name = '/login/'
 
     def get(self, request):
-        players = Player.objects.all()
+        players = Player.objects.all().order_by('last_name')
+        paginator = Paginator(players, 5)
+        page = request.GET.get('page')
+        players = paginator.get_page(page)
+        # return render(request, 'list.html', {'contacts': contacts})
         return render(request, 'player-list-view.html', {'players': players})
 
 class AddPlayerView(LoginRequiredMixin, View):
@@ -157,10 +162,9 @@ class ObservationFormView(LoginRequiredMixin, View):
 
 class CalendarList(LoginRequiredMixin, View):
     login_url = '/login/'
-    redirect_field_name = '/login/'
 
     def get(self, request):
-        calendar = ObservationList.objects.all()
+        calendar = ObservationList.objects.all().order_by('-date')
         return render(request, 'calendar-list.html', {'calendar': calendar})
 
 class CalendarAdd(LoginRequiredMixin, View):

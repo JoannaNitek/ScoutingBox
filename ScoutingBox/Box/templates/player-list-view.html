@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
 {% block container %}
+
+
+<div class="mx-auto my-3">
+        <div class="row">
+            <div class="col">
+                 <a href="/add_player/"><h4>Dodaj piłkarza</h4></a>
+            </div>
+        <div class="col">
+        </div>
+        </div>
+    </div>
+
+
     <div class="mx-auto my-3">
-    <div class="row">
-    <div class="col">
-      <a href="/add_player/"><h4>Dodaj piłkarza</h4></a>
-    </div>
-    <div class="col">
-
-    </div>
-  </div>
-
-    </div>
-    <div class="mx-auto my-3">
-        <table id="table" class="table table-striped mt-4" data-toggle="table">
-
+        <table  class="table table-hover" id="table" data-url="json/data1.json" data-filter-control="true" data-filter-show-clear="true">
           <thead style="background-color: #3f51b5; color: #ffeb3b;">
             <tr>
               <th data-field="name" data-sortable="true" scope="col">Imię i nazwisko</th>
-              <th data-field="year" data-sortable="true"scope="col">Rocznik</th>
-              <th data-field="club" data-sortable="true"scope="col">Klub</th>
-              <th data-field="position" data-sortable="true"scope="col">Pozycja</th>
-              <th data-field="status" data-sortable="true"scope="col">Status</th>
-              <th data-field="agent" data-sortable="true"scope="col">Agent</th>
-              <th data-field="1" data-sortable="true"scope="col">Uwagi</th>
-              <th data-field="2" data-sortable="true"scope="col">Uwagi</th>
-              <th data-field="3" data-sortable="true"scope="col">Uwagi</th>
+              <th data-field="year" data-sortable="true" scope="col">Rocznik</th>
+              <th data-field="club" data-sortable="true" scope="col">Klub</th>
+              <th data-field="position" data-sortable="true" scope="col">Pozycja</th>
+              <th data-field="status" data-sortable="true" scope="col">Status</th>
+              <th data-field="agent" data-sortable="true" scope="col">Agent</th>
+              <th data-field="1" data-sortable="true" scope="col">Uwagi</th>
+              <th data-field="2" data-sortable="true" scope="col">Uwagi</th>
+              <th data-field="3" data-sortable="true" scope="col">Uwagi</th>
             </tr>
           </thead>
           <tbody>
           {% for player in players %}
             <tr>
-              <th scope="row">{{ player.id }}</th>
-                <td><a href="/player/{{ player.id }}">{{ player.first_name }} {{ player.last_name }}</a></td>
+                <td><a href="/player/{{ player.id }}">{{ player.last_name }} {{ player.first_name }}</a></td>
               <td>{{ player.year_of_birth }}</td>
               <td>{{ player.club }}</td>
               <td>{{ player.get_position_display }}</td>
@@ -44,8 +44,29 @@
            {% endfor %}
           </tbody>
         </table>
-<div class="mb-5"></div>
+        <div class="mb-5"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="js/table.js"></script>
+
+
+
+    <div class="pagination justify-content-center">
+    <span class="step-links">
+        {% if players.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ players.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ players.number }} of {{ players.paginator.num_pages }}.
+        </span>
+
+        {% if players.has_next %}
+            <a href="?page={{ players.next_page_number }}">next</a>
+            <a href="?page={{ players.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
 {% endblock %}

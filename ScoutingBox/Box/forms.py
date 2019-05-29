@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
     ObservationForm, User, ObservationList
+from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
+
 
 class PlayerForm(forms.ModelForm):
     first_name = forms.CharField(label='Imię', widget=forms.TextInput
@@ -20,7 +22,7 @@ class PlayerForm(forms.ModelForm):
     position = forms.ChoiceField(choices=POSITION, label='Pozycja',
          widget=forms.Select(attrs={'class': 'form-control'}))
     status = forms.ChoiceField(choices=STATUS, label='Status', widget=forms.Select(attrs={'class': 'form-control'}))
-    agent = forms.CharField(label='Kontakt do agenta/piłkarza',
+    agent = forms.CharField(label='Kontakt do agenta',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
     other1 = forms.CharField(label='Uwagi',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
