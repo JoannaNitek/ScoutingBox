@@ -79,14 +79,14 @@ class Player(models.Model):
     position = models.IntegerField(choices=POSITION)
     status = models.IntegerField(choices=STATUS)
     agent = models.TextField(verbose_name='Kontakt z agentem', null=True, blank=True)
-    other1 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
-    other2 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
-    other3 = models.TextField(verbose_name='Uwagi', null=True, blank=True)
+
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
-
+class Comments(models.Model):
+    comment = models.TextField()
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
 class ObservationForm(models.Model):
     scout = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)

@@ -7,7 +7,7 @@ from django.views.generic import CreateView, DeleteView
 from .models import Player, ObservationForm, ObservationList, OBSERV, POINTS, QUESTION
 from .forms import PlayerForm, ObservationFormForm, Calendar
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
+
 
 # Create your views here.
 
@@ -26,10 +26,6 @@ class PlayerListView(LoginRequiredMixin, View):
 
     def get(self, request):
         players = Player.objects.all().order_by('last_name')
-        paginator = Paginator(players, 5)
-        page = request.GET.get('page')
-        players = paginator.get_page(page)
-        # return render(request, 'list.html', {'contacts': contacts})
         return render(request, 'player-list-view.html', {'players': players})
 
 class AddPlayerView(LoginRequiredMixin, View):
