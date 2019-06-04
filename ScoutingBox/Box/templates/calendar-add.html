@@ -1,15 +1,37 @@
 {% extends 'base.html' %}
 {% block container %}
-<div class="container">
+    <div class="container">
         <h2 class="mt-4">Dodaj mecz</h2>
-    <form action="#" method="POST" class="mt-4">
-        {% csrf_token %}
+        <form action="#" method="post" class="mt-4">
+            {% csrf_token %}
+{{ form }}
+{#            <label>Data i godzina: </label><br>  {{ form.date }}<br>#}
+{#            <label>Mecz: </label>  {{ form.match }}<br>#}
+{#            <label>Miasto: </label>  {{ form.city }}<br>#}
+{#            <label>Kraj: </label>  {{ form.country }}<br>#}
+{#            <label>Scout: </label>  {{ form.scout }}<br>#}
 
-        {{ form }}
-
-        <input type="submit" class='btn mt-4' style="background-color: #3f51b5; color: #ffeb3b;" value="Dodaj obserwację">
-    </form>
+            <input type="submit" class='btn mt-4' style="background-color: #3f51b5; color: #ffeb3b;" value="Dodaj obserwację">
+        </form>
 
     </div>
 
 {% endblock %}
+
+{% block datetime-head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
+{% endblock %}
+
+{% block datetime-body %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datetimepicker').datetimepicker();
+        });
+    </script>
+{% endblock %}
+
+
+

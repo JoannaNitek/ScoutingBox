@@ -1,10 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.core.validators import EmailValidator
+from tempus_dominus.widgets import DateTimePicker
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
-    ObservationForm, User, ObservationList
-from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
+    ObservationForm, ObservationList
 
 
 class PlayerForm(forms.ModelForm):
@@ -84,10 +82,8 @@ class ObservationFormForm(forms.ModelForm):
 
 
 class Calendar(forms.ModelForm):
-    date = forms.DateTimeField(label= 'Data i godzina', widget=forms.DateTimeInput(format='%m/%d/%Y HH:MM',
-        attrs={'class': 'form-control'}))
-    match = forms.CharField(label='Mecz', widget=forms.TextInput
-        (attrs={'class': 'form-control'}))
+    date = forms.DateTimeField(input_formats=['%Y/%m/%d %H:%M'], label= 'Data i godzina', widget=forms.widgets.DateTimeInput(attrs={'id': 'datetimepicker', 'type': 'datetime'}))
+    match = forms.CharField(label='Mecz', widget=forms.TextInput(attrs={'class': 'form-control'}))
     city = forms.CharField(label='Miasto', widget=forms.TextInput
         (attrs={'class': 'form-control'}))
     country = forms.CharField(label='Kraj', initial='Polska', widget=forms.TextInput

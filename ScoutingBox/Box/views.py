@@ -1,12 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.template.response import TemplateResponse
-from django.views import View
-from django.views.generic import CreateView, DeleteView
-from .models import Player, ObservationForm, ObservationList, OBSERV, POINTS, QUESTION
-from .forms import PlayerForm, ObservationFormForm, Calendar
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+from django.views import View
+
+from .forms import PlayerForm, ObservationFormForm, Calendar
+from .models import Player, ObservationList, Comments, POINTS
 
 
 # Create your views here.
@@ -26,7 +24,11 @@ class PlayerListView(LoginRequiredMixin, View):
 
     def get(self, request):
         players = Player.objects.all().order_by('last_name')
+        # com = Comments.objects.filter()
+
+
         return render(request, 'player-list-view.html', {'players': players})
+
 
 class AddPlayerView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -53,6 +55,7 @@ class PlayerView(LoginRequiredMixin, View):
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
         observ = player.observationform_set.all()
+        com = player.comments_set.all()
 
         if observ:
             s1 = sum([one.one for one in observ]) / len(observ)*25
@@ -115,7 +118,7 @@ class PlayerView(LoginRequiredMixin, View):
 
         q = QUESTIONS
 
-        return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'stats': context})
+        return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
 
 
 class ObservationFormView(LoginRequiredMixin, View):
@@ -161,11 +164,13 @@ class CalendarList(LoginRequiredMixin, View):
 
     def get(self, request):
         calendar = ObservationList.objects.all().order_by('-date')
+
         return render(request, 'calendar-list.html', {'calendar': calendar})
 
 class CalendarAdd(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = '/login/'
+
 
     def get(self, request):
         form = Calendar()
@@ -179,4 +184,3 @@ class CalendarAdd(LoginRequiredMixin, View):
             return redirect('/calendar/')
         else:
             return render(request, 'calendar-add.html', {'form': form})
-

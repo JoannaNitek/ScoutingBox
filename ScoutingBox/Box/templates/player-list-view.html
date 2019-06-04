@@ -23,9 +23,8 @@
                 <th data-field="position" scope="col">Pozycja</th>
                 <th data-field="status" scope="col">Status</th>
                 <th data-field="agent" scope="col">Agent</th>
-                <th data-field="1" scope="col">Uwagi</th>
-                <th data-field="2" scope="col">Uwagi</th>
-                <th data-field="3" scope="col">Uwagi</th>
+                <th scope="col">Komentarze</th>
+
             </tr>
             </thead>
             <tbody>
@@ -37,9 +36,8 @@
                     <td>{{ player.get_position_display }}</td>
                     <td>{{ player.get_status_display }}</td>
                     <td>{{ player.agent|default_if_none:'' }}</td>
-                    <td>{{ player.other1|default_if_none:'' }}</td>
-                    <td>{{ player.other2|default_if_none:'' }}</td>
-                    <td>{{ player.other3|default_if_none:'' }}</td>
+                    <td>{{ player.comments_set.all|default_if_none:'' }}</td>
+
                 </tr>
             {% endfor %}
             </tbody>
@@ -49,9 +47,12 @@
 
 
 {% endblock %}
+
+
 {% block styles %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 {% endblock %}
+
 {% block js %}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>

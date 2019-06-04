@@ -6,8 +6,8 @@
 <hr>
 <div class="col-2"></div>
 <div class="container-fluid mx-auto mb-5 mt-5">
-    <table class="table" id="table2" data-toggle="table">
-      <thead>
+    <table class="table table-hover" id="table2" data-toggle="table">
+      <thead style="background-color: #3f51b5; color: #ffeb3b;">
         <tr>
           <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
           <th data-field="match" data-sortable="true" scope="col">Mecz</th>
@@ -18,7 +18,7 @@
       <tbody>
       {% for item in calendar %}
         <tr>
-          <th scope="row">{{ item.date }}</th>
+          <th scope="row">{{ item.date|date:'d b Y H:i' }}</th>
           <td>{{ item.match }}</td>
           <td>{{ item.city }}, {{ item.country }}</td>
           <td>{{ item.scout }}</td>
@@ -29,7 +29,5 @@
 </div>
     <div class="col-2"></div>
 
-{#    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>#}
-{#    <script src="js/table_ob.js"></script>#}
 
 {% endblock %}

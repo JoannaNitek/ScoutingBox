@@ -7,6 +7,9 @@
 </div>
 <div class="container mx-auto mb-3">
 <ul class="list-group list-group-horizontal-sm">
+    {%  for c in com %}
+    <li class="list-group-item">Uwagi: {{ c }}</li>
+    {% endfor %}
   <li class="list-group-item">@: {{ player.mail|default_if_none:'' }}</li>
   <li class="list-group-item">tel: {{ player.phone|default_if_none:'' }}</li>
   <li class="list-group-item">{{ player.year_of_birth }}</li>

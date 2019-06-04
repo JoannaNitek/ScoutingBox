@@ -88,6 +88,9 @@ class Comments(models.Model):
     comment = models.TextField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.comment
+
 class ObservationForm(models.Model):
     scout = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
 # nie chcę usuwać danych stąd kiedy usuniemy scouta
