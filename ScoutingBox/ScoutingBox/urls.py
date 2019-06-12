@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.views import redirect_to_login, LoginView
 from django.urls import path, re_path
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
-    PlayerView, ObservationFormView, CalendarAdd, CalendarList
+    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView
 from Users.views import LogIn, LogOut
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,5 +35,8 @@ urlpatterns = [
     path('login/', LogIn.as_view()),
     path('logout/', LogOut.as_view()),
     path('calendar/', CalendarList.as_view()),
-    path('calendar_add/', CalendarAdd.as_view())
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('calendar_add/', CalendarAdd.as_view()),
+    re_path(r'^edit_player/(?P<player_id>(\d)+)', PlayerEditView.as_view()),
+
+
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

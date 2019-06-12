@@ -12,22 +12,17 @@ class PlayerForm(forms.ModelForm):
         (attrs={'class': 'form-control'}))
     year_of_birth = forms.IntegerField(min_value=1900, max_value=2050, label='Rocznik',
          widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    mail = forms.EmailField\
-        (label='e-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    phone = forms.IntegerField\
-        (label='Numer telefonu', widget=forms.NumberInput(attrs={'class': 'form-control'}))
     club = forms.CharField(label='Klub', widget=forms.TextInput(attrs={'class': 'form-control'}))
     position = forms.ChoiceField(choices=POSITION, label='Pozycja',
          widget=forms.Select(attrs={'class': 'form-control'}))
     status = forms.ChoiceField(choices=STATUS, label='Status', widget=forms.Select(attrs={'class': 'form-control'}))
+    mail = forms.EmailField\
+        (label='e-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    phone = forms.IntegerField\
+        (label='Numer telefonu', widget=forms.NumberInput(attrs={'class': 'form-control'}))
     agent = forms.CharField(label='Kontakt do agenta',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
-    other1 = forms.CharField(label='Uwagi',
-                            widget=forms.Textarea(attrs={'class': 'form-control'}))
-    other2 = forms.CharField(label='Uwagi',
-                            widget=forms.Textarea(attrs={'class': 'form-control'}))
-    other3 = forms.CharField(label='Uwagi',
-                            widget=forms.Textarea(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Player
         fields = '__all__'

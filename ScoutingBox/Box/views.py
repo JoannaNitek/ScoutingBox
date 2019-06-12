@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -17,17 +17,15 @@ class LandingPageView(LoginRequiredMixin, View):
 
         return render(request, 'landing-page.html', {})
 
-
+# załączyć getter
 class PlayerListView(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = '/login/'
 
     def get(self, request):
         players = Player.objects.all().order_by('last_name')
-        # com = Comments.objects.filter()
-
-
-        return render(request, 'player-list-view.html', {'players': players})
+        com = Comments.objects.all()
+        return render(request, 'player-list-view.html', {'players': players, 'com': com})
 
 
 class AddPlayerView(LoginRequiredMixin, View):
@@ -35,7 +33,6 @@ class AddPlayerView(LoginRequiredMixin, View):
     redirect_field_name = '/login/'
 
     def get(self, request):
-
         form = PlayerForm()
         return render(request, 'add-player.html', {'form': form})
 
@@ -47,6 +44,7 @@ class AddPlayerView(LoginRequiredMixin, View):
            return redirect('/player/{}'.format(player_id))
         else:
             return render(request, 'add-player.html', {'form': form})
+
 
 class PlayerView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -119,6 +117,41 @@ class PlayerView(LoginRequiredMixin, View):
         q = QUESTIONS
 
         return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
+
+class PlayerEditView(LoginRequiredMixin, View):
+        login_url = '/login/'
+        redirect_field_name = '/login/'
+
+        def get(self, request, player_id):
+            player = Player.objects.get(pk=player_id)
+            form = PlayerForm()
+            return render(request, 'edit-player.html', {'form': form, 'player': player})
+
+def player_edit(self, request, player_id):
+    player = get_object_or_404(Player, pk=player_id)
+    if request.method == "POST":
+        form = PlayerForm(request.POST, instance=player)
+        if form.is_valid():
+            player = form.save(commit=False)
+            player.save()
+        return redirect('/player/{}'.format(player_id))
+    else:
+        form = PlayerForm(instance=player)
+        return render(request, 'edit-player.html', {'form': form})
+
+            # def post_edit(request, pk):
+            #     post = get_object_or_404(Post, pk=pk)
+            #     if request.method == "POST":
+            #         form = PostForm(request.POST, instance=post)
+            #         if form.is_valid():
+            #             post = form.save(commit=False)
+            #             post.author = request.user
+            #             post.published_date = timezone.now()
+            #             post.save()
+            #             return redirect('post_detail', pk=post.pk)
+            #     else:
+            #         form = PostForm(instance=post)
+            #     return render(request, 'blog/post_edit.html', {'form': form})
 
 
 class ObservationFormView(LoginRequiredMixin, View):

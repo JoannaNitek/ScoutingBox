@@ -2,7 +2,7 @@
 {% block container %}
 
 
-    <div class="mx-auto my-3">
+    <div class="mx-auto my-3 container">
         <div class="row">
             <div class="col">
                 <a href="/add_player/"><h4>Dodaj piłkarza</h4></a>
@@ -13,8 +13,8 @@
     </div>
 
 
-    <div class="mx-auto my-3">
-        <table  class="table table-hover" id="myTable" >
+    <div class="mx-auto container">
+        <table  class="table table-hover table-bordered" id="myTable" >
             <thead style="background-color: #3f51b5; color: #ffeb3b;">
             <tr>
                 <th data-field="name" scope="col">Imię i nazwisko</th>
@@ -23,28 +23,57 @@
                 <th data-field="position" scope="col">Pozycja</th>
                 <th data-field="status" scope="col">Status</th>
                 <th data-field="agent" scope="col">Agent</th>
-                <th scope="col">Komentarze</th>
+                <th data-field="agent" scope="col">Kom</th>
 
+                <!-- sprawdzić z pętlą for dla komentarzy i collapse -->
             </tr>
             </thead>
             <tbody>
             {% for player in players %}
                 <tr>
-                    <td><a href="/player/{{ player.id }}">{{ player.last_name }} {{ player.first_name }}</a></td>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                            <a href="/player/{{ player.id }}">{{ player.last_name }} {{ player.first_name }}</a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline p-2 komentarz" data-toggle="modal" data-target="#exampleModal" data-kom="{{ player.comments_set.all|join:'<br>'}}">
+                              Komentarze {{ player.comments_set.count }}
+                            </button>
+                        </div>
+                    </td>
                     <td>{{ player.year_of_birth }}</td>
                     <td>{{ player.club }}</td>
                     <td>{{ player.get_position_display }}</td>
                     <td>{{ player.get_status_display }}</td>
                     <td>{{ player.agent|default_if_none:'' }}</td>
-                    <td>{{ player.comments_set.all|default_if_none:'' }}</td>
+                    <td><ul>{% for c in player.comments_set.all %}
+                        <li>{{ c }}</li>
+                    {% endfor %}</ul></td>
 
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        <div class="mb-5"></div>
-    </div>
+        <div class="mb-5"></div></div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Komentarze</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body" id="kom">
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Dodaj komentarz</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
 {% endblock %}
 
@@ -58,6 +87,12 @@
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable();
+            $('#exampleModal').on('shown.bs.modal', function (e) {
+            console.log('komentarz')
+                $('#kom').html($(e.relatedTarget).data('kom'));
+
+            })
         } );
+
     </script>
 {% endblock %}

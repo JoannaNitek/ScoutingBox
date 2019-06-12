@@ -88,6 +88,10 @@ class Comments(models.Model):
     comment = models.TextField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
 
+    # @property
+    # def get_players(self):
+    #     return self.player.all()
+
     def __str__(self):
         return self.comment
 

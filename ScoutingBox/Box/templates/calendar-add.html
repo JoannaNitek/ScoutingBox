@@ -4,12 +4,8 @@
         <h2 class="mt-4">Dodaj mecz</h2>
         <form action="#" method="post" class="mt-4">
             {% csrf_token %}
-{{ form }}
-{#            <label>Data i godzina: </label><br>  {{ form.date }}<br>#}
-{#            <label>Mecz: </label>  {{ form.match }}<br>#}
-{#            <label>Miasto: </label>  {{ form.city }}<br>#}
-{#            <label>Kraj: </label>  {{ form.country }}<br>#}
-{#            <label>Scout: </label>  {{ form.scout }}<br>#}
+
+            {{ form }}
 
             <input type="submit" class='btn mt-4' style="background-color: #3f51b5; color: #ffeb3b;" value="Dodaj obserwację">
         </form>
