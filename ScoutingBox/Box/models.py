@@ -73,12 +73,12 @@ class Player(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     year_of_birth = models.IntegerField()
-    mail = models.EmailField(null=True, blank=True)
-    phone = models.IntegerField(null=True, blank=True)
     club = models.CharField(max_length=200)
     position = models.IntegerField(choices=POSITION)
     status = models.IntegerField(choices=STATUS)
-    agent = models.TextField(verbose_name='Kontakt z agentem', null=True, blank=True)
+    mail = models.EmailField(null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
+    agent = models.TextField(null=True, blank=True)
 
 
     def __str__(self):

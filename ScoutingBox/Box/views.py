@@ -118,6 +118,7 @@ class PlayerView(LoginRequiredMixin, View):
 
         return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
 
+
 class PlayerEditView(LoginRequiredMixin, View):
         login_url = '/login/'
         redirect_field_name = '/login/'
@@ -127,31 +128,14 @@ class PlayerEditView(LoginRequiredMixin, View):
             form = PlayerForm()
             return render(request, 'edit-player.html', {'form': form, 'player': player})
 
-def player_edit(self, request, player_id):
-    player = get_object_or_404(Player, pk=player_id)
-    if request.method == "POST":
-        form = PlayerForm(request.POST, instance=player)
-        if form.is_valid():
-            player = form.save(commit=False)
-            player.save()
-        return redirect('/player/{}'.format(player_id))
-    else:
-        form = PlayerForm(instance=player)
-        return render(request, 'edit-player.html', {'form': form})
-
-            # def post_edit(request, pk):
-            #     post = get_object_or_404(Post, pk=pk)
-            #     if request.method == "POST":
-            #         form = PostForm(request.POST, instance=post)
-            #         if form.is_valid():
-            #             post = form.save(commit=False)
-            #             post.author = request.user
-            #             post.published_date = timezone.now()
-            #             post.save()
-            #             return redirect('post_detail', pk=post.pk)
-            #     else:
-            #         form = PostForm(instance=post)
-            #     return render(request, 'blog/post_edit.html', {'form': form})
+        def post(self, request, player_id):
+            player = get_object_or_404(Player, pk=player_id)
+            form = PlayerForm(instance=player)
+            if request.method == "POST" and form.is_valid():
+                form.save(commit=False)
+                return redirect('/player/{}'.format(player_id))
+            else:
+                return render(request, 'edit-player.html', {'form': form})
 
 
 class ObservationFormView(LoginRequiredMixin, View):

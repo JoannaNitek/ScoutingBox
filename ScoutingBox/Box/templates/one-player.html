@@ -1,147 +1,150 @@
 {% extends 'base.html' %}
 {% block container %}
 
-<div class="container mx-auto mb-3">
-    <h1 class="mx-auto container-fliud">{{ player.first_name }} {{ player.last_name }} </h1>
-    <a href="/form/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Obserwuj zawodnika</a>
-</div>
-<div class="container mx-auto mb-3">
-<ul class="list-group list-group-horizontal-sm">
-    {%  for c in com %}
-    <li class="list-group-item">Uwagi: {{ c }}</li>
-    {% endfor %}
-  <li class="list-group-item">@: {{ player.mail|default_if_none:'' }}</li>
-  <li class="list-group-item">tel: {{ player.phone|default_if_none:'' }}</li>
-  <li class="list-group-item">{{ player.year_of_birth }}</li>
-    <li class="list-group-item">{{ player.club }}</li>
-      <li class="list-group-item">{{ player.get_position_display }}</li>
-      <li class="list-group-item">{{ player.get_status_display }}</li>
-</ul>
-</div>
-<hr class="container">
-
-<div class="container-fluid mx-auto mt-5 row">
-<div class="col-1"></div>
-    <div class="mx-auto col container-fluid">
-       <h2>Oceny opisowe</h2>
-    <hr>
-        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
-
-            <div class="card-header" data-toggle="collapse">Gra w ofensywie</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.first_desc }}</p>{% endfor %}
-            </div>
-        </div>
-
-        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
-            <div class="card-header" data-toggle="collapse">Gra w defensywie</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.second_desc }}</p>{% endfor %}
-            </div>
-        </div>
-
-        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
-            <div class="card-header" data-toggle="collapse">Gra bez piłki</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.third_desc }}</p>{% endfor %}
-            </div>
-        </div>
-
-        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
-            <div class="card-header" data-toggle="collapse">Cechy wolicjonalne</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.fourth_desc }}</p>{% endfor %}
-            </div>
-        </div>
-
-         <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
-            <div class="card-header" data-toggle="collapse">Inne</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.fifth_desc }}</p>{% endfor %}
-            </div>
-         </div>
-
-          <div class="card border-primary mt-3 mb-5" style="max-width: 40rem; color: #3f51b5;">
-            <div class="card-header" data-toggle="collapse">Wnioski</div>
-            <div class="card-body text-primary">
-                {% for val in observ %}
-                <h6 class="card-title">{{ val.scout }}</h6>
-                <p class="card-text">{{ val.sixth_desc }}</p>{% endfor %}
-            </div>
-          </div>
+    <div class="container mx-auto mb-3">
+        <h1 class="mx-auto container-fliud">{{ player.first_name }} {{ player.last_name }} </h1>
+        <a href="/form/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Obserwuj zawodnika</a>
+        <a href="/edit_player/{{ player.id }}/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Edytuj zawodnika</a>
     </div>
-
-
-    <div class="mx-auto col container-fluid">
-       <h2>Podsumowanie punktów</h2>
-<hr>
-        <h5>{{ q.1a }}</h5>
-
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s1 }}%" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="100">{{ stats.s1 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.2a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s2 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s2 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.3a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s3 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s3 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.4a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s4 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s4 }}%</div>
-         </div>
-
-        <h5 class="mt-3">{{ q.5a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s5 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s5 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.6a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar"style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s6 }}%"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s6 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.7a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s7 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s7 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.8a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width: {{ stats.s8 }}%" aria-valuenow="{{ s8 }}" aria-valuemin="0" aria-valuemax="100">{{ stats.s8 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.9a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s9 }}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{ stats.s9 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.10a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s10 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s10 }}%</div>
-        </div>
-
-        <h5 class="mt-3">{{ q.11a }}</h5>
-        <div class="progress mt-3"style="height: 20px;">
-            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s11 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s11 }}%</div>
-        </div>
+    <div class="container mx-auto mb-3">
+        <ul class="list-group list-group-horizontal-sm">
+            {%  for c in com %}
+                <li class="list-group-item">Uwagi: {{ c }}</li>
+            {% endfor %}</ul><br></div>
+    <div class="container mx-auto mb-3">
+        <ul class="list-group list-group-horizontal-sm">
+            <li class="list-group-item">@: {{ player.mail|default_if_none:'' }}</li>
+            <li class="list-group-item">tel: {{ player.phone|default_if_none:'' }}</li>
+            <li class="list-group-item">{{ player.year_of_birth }}</li>
+            <li class="list-group-item">{{ player.club }}</li>
+            <li class="list-group-item">{{ player.get_position_display }}</li>
+            <li class="list-group-item">{{ player.get_status_display }}</li>
+        </ul>
     </div>
-<div class="col-1 mb-1"></div>
-</div>
+    <hr class="container">
+
+    <div class="container-fluid mx-auto mt-5 row">
+        <div class="col-1"></div>
+        <div class="mx-auto col container-fluid">
+            <h2>Oceny opisowe</h2>
+            <hr>
+            <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+
+                <div class="card-header" data-toggle="collapse">Gra w ofensywie</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.first_desc }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                <div class="card-header" data-toggle="collapse">Gra w defensywie</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.second_desc }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                <div class="card-header" data-toggle="collapse">Gra bez piłki</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.third_desc }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                <div class="card-header" data-toggle="collapse">Cechy wolicjonalne</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.fourth_desc }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                <div class="card-header" data-toggle="collapse">Inne</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.fifth_desc }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="card border-primary mt-3 mb-5" style="max-width: 40rem; color: #3f51b5;">
+                <div class="card-header" data-toggle="collapse">Wnioski</div>
+                <div class="card-body text-primary">
+                    {% for val in observ %}
+                        <h6 class="card-title">{{ val.scout }}</h6>
+                        <p class="card-text">{{ val.sixth_desc }}</p>{% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mx-auto col container-fluid">
+            <h2>Podsumowanie punktów</h2>
+            <hr>
+            <h5>{{ q.1a }}</h5>
+
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s1 }}%" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="100">{{ stats.s1 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.2a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s2 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s2 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.3a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s3 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s3 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.4a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s4 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s4 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.5a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s5 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s5 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.6a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar"style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s6 }}%"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s6 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.7a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s7 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s7 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.8a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width: {{ stats.s8 }}%" aria-valuenow="{{ s8 }}" aria-valuemin="0" aria-valuemax="100">{{ stats.s8 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.9a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s9 }}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{ stats.s9 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.10a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s10 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s10 }}%</div>
+            </div>
+
+            <h5 class="mt-3">{{ q.11a }}</h5>
+            <div class="progress mt-3"style="height: 20px;">
+                <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s11 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s11 }}%</div>
+            </div>
+        </div>
+        <div class="col-1 mb-1"></div>
+    </div>
 
 {% endblock %}
