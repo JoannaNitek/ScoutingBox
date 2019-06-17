@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import PlayerForm, ObservationFormForm, Calendar
+from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
 from .models import Player, ObservationList, Comments, POINTS
 
 
@@ -34,16 +34,21 @@ class AddPlayerView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = PlayerForm()
-        return render(request, 'add-player.html', {'form': form})
+        form2 = CommentsForm()
+        return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
     def post(self, request):
         form = PlayerForm(request.POST)
-        if form.is_valid():
+        form2 = CommentsForm(request.POST)
+        if all([form.is_valid(), form2.is_valid()]):
            new_player = form.save()
            player_id = new_player.id
+           new_comm = form2.save()
+           p = new_comm.player
+           p = player_id
            return redirect('/player/{}'.format(player_id))
         else:
-            return render(request, 'add-player.html', {'form': form})
+            return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
 
 class PlayerView(LoginRequiredMixin, View):

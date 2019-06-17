@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from tempus_dominus.widgets import DateTimePicker
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
-    ObservationForm, ObservationList
+    ObservationForm, ObservationList, Comments
 
 
 class PlayerForm(forms.ModelForm):
@@ -17,10 +17,10 @@ class PlayerForm(forms.ModelForm):
          widget=forms.Select(attrs={'class': 'form-control'}))
     status = forms.ChoiceField(choices=STATUS, label='Status', widget=forms.Select(attrs={'class': 'form-control'}))
     mail = forms.EmailField\
-        (label='e-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+        (required=False, label='e-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
     phone = forms.IntegerField\
-        (label='Numer telefonu', widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    agent = forms.CharField(label='Kontakt do agenta',
+        (required=False, label='Numer telefonu', widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    agent = forms.CharField(required=False, label='Kontakt do agenta',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
 
     class Meta:
@@ -89,4 +89,13 @@ class Calendar(forms.ModelForm):
 
     class Meta:
         model = ObservationList
+        fields = '__all__'
+
+
+class CommentsForm(forms.ModelForm):
+    comment = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+
+    class Meta:
+        model = Comments
         fields = '__all__'
