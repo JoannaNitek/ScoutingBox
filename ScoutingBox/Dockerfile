@@ -9,5 +9,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./ ./
 
+# instalacja postgres
+
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver"]

@@ -85,8 +85,8 @@ class Player(models.Model):
         return self.first_name + ' ' + self.last_name
 
 class Comments(models.Model):
-    comment = models.TextField()
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    comment = models.TextField(null=True, blank=True)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
 
     # @property
     # def get_players(self):

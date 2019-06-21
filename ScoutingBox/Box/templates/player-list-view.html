@@ -35,9 +35,9 @@
                         <div class="d-flex justify-content-between">
                             <a href="/player/{{ player.id }}">{{ player.last_name }} {{ player.first_name }}</a>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary d-inline p-2 komentarz" data-toggle="modal" data-target="#exampleModal" data-kom="{{ player.comments_set.all|join:'<br>'}}">
-                              Komentarze {{ player.comments_set.count }}
-                            </button>
+{#                            <button type="button" class="btn btn-primary d-inline p-2 komentarz" data-toggle="modal" data-target="#exampleModal" data-kom="{{ player.comments_set.all|join:'<br>'}}">#}
+{#                              Komentarze {{ player.comments_set.count }}#}
+{#                            </button>#}
                         </div>
                     </td>
                     <td>{{ player.year_of_birth }}</td>

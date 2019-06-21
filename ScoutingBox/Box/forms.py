@@ -23,14 +23,15 @@ class PlayerForm(forms.ModelForm):
     agent = forms.CharField(required=False, label='Kontakt do agenta',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
 
+
     class Meta:
         model = Player
         fields = '__all__'
 
 class ObservationFormForm(forms.ModelForm):
 
-    scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
-         widget=forms.Select(attrs={'class': 'form-control'}))
+    # scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
+    #      widget=forms.Select(attrs={'class': 'form-control'}))
     player = forms.ModelChoiceField(queryset=Player.objects.all(), label='Piłkarz',
          widget=forms.Select(attrs={'class': 'form-control'}))
     observation = forms.ChoiceField(choices=OBSERV, label='Rodzaj obserwacji', widget=forms.Select(attrs={'class': 'form-control'}))
@@ -72,7 +73,7 @@ class ObservationFormForm(forms.ModelForm):
 
     class Meta:
         model = ObservationForm
-        fields = '__all__'
+        exclude = ['scout']
 
 
 
@@ -83,13 +84,13 @@ class Calendar(forms.ModelForm):
         (attrs={'class': 'form-control'}))
     country = forms.CharField(label='Kraj', initial='Polska', widget=forms.TextInput
         (attrs={'class': 'form-control'}))
-    scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
-         widget=forms.Select(attrs={'class': 'form-control'}))
+    # scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
+    #      widget=forms.Select(attrs={'class': 'form-control'}))
 
 
     class Meta:
         model = ObservationList
-        fields = '__all__'
+        exclude = ['scout']
 
 
 class CommentsForm(forms.ModelForm):
@@ -98,4 +99,4 @@ class CommentsForm(forms.ModelForm):
 
     class Meta:
         model = Comments
-        fields = '__all__'
+        exclude = ['player']

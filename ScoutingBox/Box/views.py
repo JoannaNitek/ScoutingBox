@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import UpdateView
 
 from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
 from .models import Player, ObservationList, Comments, POINTS
@@ -17,7 +18,7 @@ class LandingPageView(LoginRequiredMixin, View):
 
         return render(request, 'landing-page.html', {})
 
-# załączyć getter
+
 class PlayerListView(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = '/login/'
@@ -40,15 +41,18 @@ class AddPlayerView(LoginRequiredMixin, View):
     def post(self, request):
         form = PlayerForm(request.POST)
         form2 = CommentsForm(request.POST)
-        if all([form.is_valid(), form2.is_valid()]):
-           new_player = form.save()
-           player_id = new_player.id
-           new_comm = form2.save()
-           p = new_comm.player
-           p = player_id
-           return redirect('/player/{}'.format(player_id))
+        if form.is_valid() and form2.is_valid():
+            new_player = form.save(commit=False)
+            new_player.save()
+            player_id = new_player.id
+
+            new_comm = form2.save(commit=False)
+            new_comm.player = new_player
+            new_comm.save()
+
+            return redirect('/player/{}'.format(player_id))
         else:
-            return render(request, 'add-player.html', {'form': form, 'form2': form2})
+            return render(request, 'add-player.html', {'form': form})
 
 
 class PlayerView(LoginRequiredMixin, View):
@@ -123,24 +127,30 @@ class PlayerView(LoginRequiredMixin, View):
 
         return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
 
+# class PlayerUpdate(UpdateView):
+#     model = Player
+#     form_class = PlayerForm
 
 class PlayerEditView(LoginRequiredMixin, View):
         login_url = '/login/'
         redirect_field_name = '/login/'
 
         def get(self, request, player_id):
-            player = Player.objects.get(pk=player_id)
-            form = PlayerForm()
-            return render(request, 'edit-player.html', {'form': form, 'player': player})
+            player = get_object_or_404(Player, pk=player_id)
+            form = PlayerForm(instance=player)
+            form2 = CommentsForm(instance=player)
+            return render(request, 'edit-player.html', {'form': form, 'player': player, 'form2': form2})
 
         def post(self, request, player_id):
             player = get_object_or_404(Player, pk=player_id)
-            form = PlayerForm(instance=player)
-            if request.method == "POST" and form.is_valid():
-                form.save(commit=False)
+            form = PlayerForm(request.POST, instance=player)
+            form2 = CommentsForm(request.POST, instance=player)
+            if request.method == "POST" and form.is_valid() and form2.is_valid():
+                form.save()
+                form2.save()
                 return redirect('/player/{}'.format(player_id))
             else:
-                return render(request, 'edit-player.html', {'form': form})
+                return render(request, 'edit-player.html', {'form': form, 'form2': form2})
 
 
 class ObservationFormView(LoginRequiredMixin, View):
@@ -174,8 +184,9 @@ class ObservationFormView(LoginRequiredMixin, View):
     def post(self, request):
         form = ObservationFormForm(request.POST)
         if form.is_valid():
-            new_form = form.save()
-
+            new_form = form.save(commit=False)
+            new_form.scout = request.user
+            new_form.save()
             return redirect('/player/{}'.format(new_form.player.id))
         else:
             return render(request, 'form.html', {'form': form})
@@ -202,7 +213,9 @@ class CalendarAdd(LoginRequiredMixin, View):
     def post(self, request):
         form = Calendar(request.POST)
         if form.is_valid():
-            new_observation = form.save()
+            new_observation = form.save(commit=False)
+            new_observation.scout = request.user
+            new_observation.save()
             return redirect('/calendar/')
         else:
             return render(request, 'calendar-add.html', {'form': form})
