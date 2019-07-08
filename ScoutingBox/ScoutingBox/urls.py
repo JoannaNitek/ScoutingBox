@@ -15,11 +15,13 @@ Including another URLconf
 """
 import patterns as patterns
 from django.contrib import admin
+from django.contrib.auth import login
 from django.contrib.auth.views import redirect_to_login, LoginView
 from django.urls import path, re_path
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
-    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView
-from Users.views import LogIn, LogOut
+    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView, CalendarDeleteView, ObservationFormPlayerView
+from Users import views
+from Users.views import LogIn, LogOut, Register
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,11 +34,14 @@ urlpatterns = [
     re_path('add_player/', AddPlayerView.as_view()),
     re_path(r'^player/(?P<player_id>(\d)+)', PlayerView.as_view()),
     path('form/', ObservationFormView.as_view()),
+    re_path(r'^form/(?P<player_id>(\d)+)', ObservationFormPlayerView.as_view()),
     path('login/', LogIn.as_view()),
+    path('register/', Register.as_view()),
     path('logout/', LogOut.as_view()),
     path('calendar/', CalendarList.as_view()),
     path('calendar_add/', CalendarAdd.as_view()),
     re_path(r'^edit_player/(?P<player_id>(\d)+)', PlayerEditView.as_view()),
+    re_path(r'^delete_calendar/(?P<id>(\d)+)', CalendarDeleteView.as_view()),
 
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
 
 
 class UserManager(BaseUserManager):
@@ -64,4 +65,11 @@ class UserData(AbstractUser):
 
     objects = UserManager()
 
+
+def create_profile(sender, **kwargs):
+    if kwargs['created']:
+        user_profile = UserData.objects.create(user=kwargs['instance'])
+
+
 # w settings wskaż na ten model jako AUTH_USER_MODEL = 'user.User'
+post_save.connect(create_profile, sender=User)

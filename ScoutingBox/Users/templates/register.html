@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends "baselogin.html" %}
 
 {% block container %}
     <div class="mx-auto my-5" style="width: 400px;">
-        <form action="#" method="post">
+        <h5>Zarejestruj się</h5>
+        <form method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="exampleInputEmail1">Adres email</label>
@@ -12,10 +13,12 @@
                 <label for="exampleInputPassword1">Hasło</label>
                 <input type="password" name="passwd" class="form-control" id="exampleInputPassword1" placeholder="Wpisz hasło">
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; color: #ffeb3b;">Zaloguj</button>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Powtórz hasło</label>
+                <input type="password" name="passwd" class="form-control" id="exampleInputPassword1" placeholder="Wpisz hasło">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; color: #ffeb3b;">Zarejestruj się</button>
         </form>
     </div>
-        <div class="mx-auto my-5" style="width: 400px;">
-            <h5>Nie masz konta? <a href="register/">Zarejestruj się!</a></h5>
-        </div>
 {% endblock %}

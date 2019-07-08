@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
-from .models import Player, ObservationList, Comments, POINTS
+from .models import Player, ObservationList, Comments, POINTS, ObservationForm
 
 
 # Create your views here.
@@ -152,6 +152,11 @@ class PlayerEditView(LoginRequiredMixin, View):
             else:
                 return render(request, 'edit-player.html', {'form': form, 'form2': form2})
 
+class AddNoticeDeleteView(DeleteView):
+    model = Player
+    fields = '__all__'
+    success_url = '/'
+
 
 class ObservationFormView(LoginRequiredMixin, View):
     login_url = '/login/'
@@ -192,6 +197,47 @@ class ObservationFormView(LoginRequiredMixin, View):
             return render(request, 'form.html', {'form': form})
 
 
+class ObservationFormPlayerView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = '/login/'
+
+    def get(self, request, player_id):
+        player = Player.objects.get(pk=player_id)
+        form = ObservationFormForm()
+
+        QUESTIONS = {
+            '1': 'Gra w ofensywie',
+            '2': 'Gra w defensywie',
+            '3': 'Gra bez piłki',
+            '4': 'Cechy wolicjonalne',
+            '5': 'Inne',
+            '6': 'Wnioski',
+            '1a': 'Technika użytkowa',
+            '2a': 'Gra słabszą nogą',
+            '3a': 'Siła',
+            '4a': 'Koordynacja',
+            '5a': 'Przyspieszenie',
+            '6a': 'Agresja',
+            '7a': 'Odpowiedzialność w grze',
+            '8a': 'Skłonność do przecinania linii przeciwnika (wejściem/ podaniem)',
+            '9a': 'Pracowitość',
+            '10a': 'Odbiór piłki',
+            '11a': 'Gra w powietrzu'}
+        q = QUESTIONS
+        p = POINTS
+        return render(request, 'form-player.html', {'form': form, 'q': q, 'p': p, 'player': player})
+
+    def post(self, request, player_id):
+        player = Player.objects.get(pk=player_id)
+        form = ObservationFormForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.scout = request.user
+            new_form.save()
+            return redirect('/player/{}'.format(new_form.player.id))
+        else:
+            return render(request, 'form-player.html', {'form': form, 'player': player})
+
 class CalendarList(LoginRequiredMixin, View):
     login_url = '/login/'
 
@@ -203,7 +249,6 @@ class CalendarList(LoginRequiredMixin, View):
 class CalendarAdd(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = '/login/'
-
 
     def get(self, request):
         form = Calendar()
@@ -219,3 +264,22 @@ class CalendarAdd(LoginRequiredMixin, View):
             return redirect('/calendar/')
         else:
             return render(request, 'calendar-add.html', {'form': form})
+
+
+class CalendarDeleteView(View, LoginRequiredMixin):
+    login_url = '/login/'
+    redirect_field_name = '/login/'
+
+    def get(self, request, id):
+        calendar = ObservationList.objects.get(pk=id)
+        return render(request, '', {'calendar': calendar})
+
+    def post(self, request):
+        calendar = ObservationList.objects.get(pk=id)
+        calendar.delete()
+        return redirect('/calendar/')
+
+        # def post(self, request, id):
+        #     room = Room.objects.get(id=id)
+        #     room.delete()
+        #     return redirect('/')

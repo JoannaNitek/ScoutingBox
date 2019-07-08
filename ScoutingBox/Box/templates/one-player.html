@@ -3,14 +3,17 @@
 
     <div class="container mx-auto mb-3">
         <h1 class="mx-auto container-fliud">{{ player.first_name }} {{ player.last_name }} </h1>
-        <a href="/form/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Obserwuj zawodnika</a>
-        <a href="/edit_player/{{ player.id }}/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Edytuj zawodnika</a>
+        <a href="/form/{{ player.id }}" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Obserwuj zawodnika</a>
+        <a href="/edit_player/{{ player.id }}/" class="btn mx-auto" style="background-color: #3f51b5; color: #ffeb3b;">Edytuj zawodnika / dodaj komentarz</a>
+        <a href="/edit_player/{{ player.id }}/" class="btn btn-danger mx-auto">Usuń zawodnika</a>
     </div>
     <div class="container mx-auto mb-3">
         <ul class="list-group list-group-horizontal-sm">
             {%  for c in com %}
-                <li class="list-group-item">Uwagi: {{ c }}</li>
-            {% endfor %}</ul><br></div>
+                <li class="list-group-item">{{ c }}</li>
+                <li><a href="..." class="btn btn-danger btn-small">X</a></li>
+            {% endfor %}
+                </ul><br></div>
     <div class="container mx-auto mb-3">
         <ul class="list-group list-group-horizontal-sm">
             <li class="list-group-item">@: {{ player.mail|default_if_none:'' }}</li>

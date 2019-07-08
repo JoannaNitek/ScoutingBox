@@ -6,10 +6,10 @@ from django.template.response import TemplateResponse
 from django.views import View
 from Users.forms import AuthenticationFormWithInactiveUsersOkay
 from django.contrib.auth.views import redirect_to_login, LoginView
+from django.contrib.auth.forms import UserCreationForm
 
 
 class LogIn(View):
-
 
     def get(self, request):
         if not request.user.is_anonymous:
@@ -36,7 +36,7 @@ class LogIn(View):
 
             return HttpResponseRedirect('/ScoutingBox/')
 
-        print("nueprawidlowe haslo")
+        print("nieprawidlowe haslo")
         return render(request, 'login.html')
 
 class LogOut(View):
@@ -44,3 +44,21 @@ class LogOut(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/login/')
+
+
+class Register(View, UserCreationForm):
+
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, 'register.html', {'form': form})
+
+    def post(request):
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/login')
+            else:
+                form = UserCreationForm()
+                return render(request, 'register.html', {'form': form})
+
