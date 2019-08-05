@@ -1,19 +1,71 @@
 {% extends 'base.html' %}
 {% block container %}
     {% load static %}
-<div class="container-fluid mb-5">
-<div class="card container-fluid mx-auto" style="width: 30rem;">
-  <img src="{% static 'stadion.jpg' %}" class="card-img-top mt-1" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Scouting</h5>
-    <p class="card-text"></p>
-  </div>
-  <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a href="/add_player/">Dodaj zawodnika</a></li>
-      <li class="list-group-item">Najnowszy zawodnik: </li>
-    <li class="list-group-item">Zawodnicy TOP: </li>
-  </ul>
-</div>
-</div>
+
+    <div class="container mt-5">
+    <h2>Witaj, </h2>
+    <hr>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-5">
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{% static 'boisko.jpg' %}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <a href="#" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Dodaj zawodnika</a>
+                                    <hr>
+                                <a href="#" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Dodaj obserwacje</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-auto">
+
+            </div>
+            <div class="col col-lg-5">
+
+                <div class="card border-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Zawodnicy TOP</div>
+                    <div class="card-body">
+                        <div class="mx-auto">
+                            {% for p in players %}
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><a href="/player/{{ player.id }}">{{ p }}</a></li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Terminarz</div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+
+                <div class="card border-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Najnowszy komentarz</div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}

@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime
+
+from django.forms import formset_factory
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import UpdateView, DeleteView
 
 from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
 from .models import Player, ObservationList, Comments, POINTS, ObservationForm
@@ -10,18 +12,19 @@ from .models import Player, ObservationList, Comments, POINTS, ObservationForm
 
 # Create your views here.
 
-
-class LandingPageView(LoginRequiredMixin, View):
-    login_url = '/login/'
+class LandingPageView(View):
+# dodaj do klasy dziedziczenie po LoginRequiredMixin
+#     login_url = '/login/'
 
     def get(self, request):
+        players = Player.objects.filter(status=4)
 
-        return render(request, 'landing-page.html', {})
+        return render(request, 'landing-page.html', {'players': players})
 
 
-class PlayerListView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class PlayerListView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request):
         players = Player.objects.all().order_by('last_name')
@@ -29,9 +32,9 @@ class PlayerListView(LoginRequiredMixin, View):
         return render(request, 'player-list-view.html', {'players': players, 'com': com})
 
 
-class AddPlayerView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class AddPlayerView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request):
         form = PlayerForm()
@@ -55,27 +58,28 @@ class AddPlayerView(LoginRequiredMixin, View):
             return render(request, 'add-player.html', {'form': form})
 
 
-class PlayerView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class PlayerView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
         observ = player.observationform_set.all()
+        ile = len(observ)
         com = player.comments_set.all()
 
         if observ:
-            s1 = sum([one.one for one in observ]) / len(observ)*25
-            s2 = sum([two.two for two in observ]) / len(observ)*25
-            s3 = sum([three.three for three in observ]) / len(observ)*25
-            s4 = sum([four.four for four in observ]) / len(observ)*25
-            s5 = sum([five.five for five in observ]) / len(observ)*25
-            s6 = sum([six.six for six in observ]) / len(observ)*25
-            s7 = sum([seven.seven for seven in observ]) / len(observ)*25
-            s8 = sum([eight.eight for eight in observ]) / len(observ)*25
-            s9 = sum([nine.nine for nine in observ]) / len(observ)*25
-            s10 = sum([ten.ten for ten in observ]) / len(observ)*25
-            s11 = sum([eleven.eleven for eleven in observ]) / len(observ)*25
+            s1 = int(sum([one.one for one in observ]) / ile*25)
+            s2 = int(sum([two.two for two in observ]) / len(observ)*25)
+            s3 = int(sum([three.three for three in observ]) / len(observ)*25)
+            s4 = int(sum([four.four for four in observ]) / len(observ)*25)
+            s5 = int(sum([five.five for five in observ]) / len(observ)*25)
+            s6 = int(sum([six.six for six in observ]) / len(observ)*25)
+            s7 = int(sum([seven.seven for seven in observ]) / len(observ)*25)
+            s8 = int(sum([eight.eight for eight in observ]) / len(observ)*25)
+            s9 = int(sum([nine.nine for nine in observ]) / len(observ)*25)
+            s10 = int(sum([ten.ten for ten in observ]) / len(observ)*25)
+            s11 = int(sum([eleven.eleven for eleven in observ]) / len(observ)*25)
         else:
             s1 = 0
             s2 = 0
@@ -127,40 +131,37 @@ class PlayerView(LoginRequiredMixin, View):
 
         return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
 
-# class PlayerUpdate(UpdateView):
-#     model = Player
-#     form_class = PlayerForm
 
-class PlayerEditView(LoginRequiredMixin, View):
-        login_url = '/login/'
-        redirect_field_name = '/login/'
+class PlayerEditView(View):
+        # login_url = '/login/'
+        # redirect_field_name = '/login/'
 
         def get(self, request, player_id):
             player = get_object_or_404(Player, pk=player_id)
             form = PlayerForm(instance=player)
-            form2 = CommentsForm(instance=player)
+            form2 = CommentsForm()
             return render(request, 'edit-player.html', {'form': form, 'player': player, 'form2': form2})
 
         def post(self, request, player_id):
             player = get_object_or_404(Player, pk=player_id)
-            form = PlayerForm(request.POST, instance=player)
-            form2 = CommentsForm(request.POST, instance=player)
-            if request.method == "POST" and form.is_valid() and form2.is_valid():
-                form.save()
-                form2.save()
-                return redirect('/player/{}'.format(player_id))
+            PlayerFormset = formset_factory(PlayerForm)
+            CommentsFormset = formset_factory(CommentsForm)
+            if request.method == "POST":
+                form = PlayerFormset(request.POST, prefix='play')
+                form2 = CommentsFormset(request.POST, prefix='com')
+                if form.is_valid() and form2.is_valid():
+                    form.save()
+                    form2.save()
+                    return redirect('/player/{}'.format(player_id), {'form': form, 'form2': form2, 'player': player})
             else:
-                return render(request, 'edit-player.html', {'form': form, 'form2': form2})
-
-class AddNoticeDeleteView(DeleteView):
-    model = Player
-    fields = '__all__'
-    success_url = '/'
+                form = PlayerFormset(prefix='play')
+                form2 = CommentsFormset(prefix='com')
+                return render(request, 'edit-player.html', {'form': form, 'form2': form2, 'player': player})
 
 
-class ObservationFormView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class ObservationFormView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request):
         form = ObservationFormForm()
@@ -197,13 +198,19 @@ class ObservationFormView(LoginRequiredMixin, View):
             return render(request, 'form.html', {'form': form})
 
 
-class ObservationFormPlayerView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class ObservationFormPlayerView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
-        form = ObservationFormForm()
+        initial = {'player': player}
+        form = ObservationFormForm(initial={'player': player})
+
+        # def view(request):
+        #     game = Game.objects.get(id=1)  # just an example
+        #     form = UserQueueForm(instance=game)
+        #     return render_to_response('my_template.html', {'form': form})
 
         QUESTIONS = {
             '1': 'Gra w ofensywie',
@@ -225,7 +232,7 @@ class ObservationFormPlayerView(LoginRequiredMixin, View):
             '11a': 'Gra w powietrzu'}
         q = QUESTIONS
         p = POINTS
-        return render(request, 'form-player.html', {'form': form, 'q': q, 'p': p, 'player': player})
+        return render(request, 'form-player.html', {'form': form, 'q': q, 'p': p, 'player': player, 'initial': initial})
 
     def post(self, request, player_id):
         player = Player.objects.get(pk=player_id)
@@ -238,22 +245,23 @@ class ObservationFormPlayerView(LoginRequiredMixin, View):
         else:
             return render(request, 'form-player.html', {'form': form, 'player': player})
 
-class CalendarList(LoginRequiredMixin, View):
-    login_url = '/login/'
+class CalendarList(View):
+    # login_url = '/login/'
 
     def get(self, request):
-        calendar = ObservationList.objects.all().order_by('-date')
+        calendar = ObservationList.objects.filter(date__lte=datetime.today())
+        forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
 
-        return render(request, 'calendar-list.html', {'calendar': calendar})
+        return render(request, 'calendar-list.html', {'calendar': calendar, 'forward': forward})
 
-class CalendarAdd(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+
+class CalendarAdd(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request):
         form = Calendar()
         return render(request, 'calendar-add.html', {'form': form})
-
 
     def post(self, request):
         form = Calendar(request.POST)
@@ -266,9 +274,9 @@ class CalendarAdd(LoginRequiredMixin, View):
             return render(request, 'calendar-add.html', {'form': form})
 
 
-class CalendarDeleteView(View, LoginRequiredMixin):
-    login_url = '/login/'
-    redirect_field_name = '/login/'
+class CalendarDeleteView(View):
+    # login_url = '/login/'
+    # redirect_field_name = '/login/'
 
     def get(self, request, id):
         calendar = ObservationList.objects.get(pk=id)

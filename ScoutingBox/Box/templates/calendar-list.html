@@ -1,36 +1,58 @@
 {% extends 'base.html' %}
 {% block container %}
 
-<div class="container-fluid mx-auto mt-5">
-    <h4 class="container-fluid mx-auto mt-5">Terminarz obserwacji</h4>
-</div>
-<hr>
-<div class="col-2"></div>
-<div class="container-fluid mx-auto mb-5 mt-5">
-    <table class="table table-hover table-bordered"  id="myTable" data-toggle="table">
-        <thead style="background-color: #3f51b5; color: #ffeb3b;">
-        <tr>
-            <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
-            <th data-field="match" data-sortable="true" scope="col">Mecz</th>
-            <th data-field="city" data-sortable="true" scope="col">Lokalizacja</th>
-            <th data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in calendar %}
+    <div class="col-2"></div>
+    <div class="container mx-auto mb-5 mt-5">
+        <h4>Nadchodzące obserwacje: </h4>
+        <table class="table table-hover table-bordered"  id="myTable1" data-toggle="table">
+            <thead class="thead-dark">
             <tr>
-                <th scope="row">{{ item.date|date:'d m Y H:i' }}</th>
-                <td>{{ item.match }}</td>
-                <td>{{ item.city }}, {{ item.country }}</td>
-                <td>{{ item.scout }}</td>
-                <td><a href='delete-calendar.html' class="btn btn-danger btn-small">X</a></td>
+                <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
+                <th data-field="match" data-sortable="true" scope="col">Mecz</th>
+                <th data-field="city" data-sortable="true" scope="col">Lokalizacja</th>
+                <th data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class="col-2"></div>
+            </thead>
+            <tbody>
+            {% for item in forward %}
+                <tr>
+                    <td>{{ item.date|date:'Y m d D H:i' }}</td>
+                    <td>{{ item.match }}</td>
+                    <td>{{ item.city }}, {{ item.country }}</td>
+                    <td>{{ item.scout }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-2"></div>
+
+
+    <div class="col-2"></div>
+    <div class="container-fluid mx-auto mb-5 mt-5">
+        <h4>Poprzednie obserwacje: </h4>
+        <table class="table table-hover table-bordered"  id="myTable" data-toggle="table">
+            <thead style="background-color: whitesmoke; color: gray;">
+            <tr>
+                <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
+                <th data-field="match" data-sortable="true" scope="col">Mecz</th>
+                <th data-field="city" data-sortable="true" scope="col">Lokalizacja</th>
+                <th data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in calendar %}
+                <tr>
+                    <td style="color: gray">{{ item.date|date:'Y m d D H:i' }}</td>
+                    <td style="color: gray">{{ item.match }}</td>
+                    <td style="color: gray">{{ item.city }}, {{ item.country }}</td>
+                    <td style="color: gray">{{ item.scout }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-2"></div>
 {% endblock %}
 
 
@@ -51,6 +73,4 @@
         } );
 
     </script>
-
-
 {% endblock %}

@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from tempus_dominus.widgets import DateTimePicker
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
     ObservationForm, ObservationList, Comments
