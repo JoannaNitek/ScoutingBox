@@ -98,4 +98,4 @@ class CommentsForm(forms.ModelForm):
 
     class Meta:
         model = Comments
-        exclude = ['player']
+        exclude = ['player', 'date']

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
-    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView, CalendarDeleteView, ObservationFormPlayerView
+    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView, CalendarDeleteView, ObservationFormPlayerView, AddCommentFormView, CommentDeleteView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,4 +32,6 @@ urlpatterns = [
     path('calendar_add/', CalendarAdd.as_view()),
     re_path(r'^edit_player/(?P<player_id>(\d)+)', PlayerEditView.as_view()),
     re_path(r'^delete_calendar/(?P<id>(\d)+)', CalendarDeleteView.as_view()),
+    re_path(r'^add_comment/(?P<player_id>(\d)+)', AddCommentFormView.as_view()),
+    re_path(r'^delete_comment/(?P<player_id>(\d)+)/(?P<com_id>(\d)+)', CommentDeleteView.as_view()),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

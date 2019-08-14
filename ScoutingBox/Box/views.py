@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.forms import formset_factory
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -55,7 +55,7 @@ class AddPlayerView(View):
 
             return redirect('/player/{}'.format(player_id))
         else:
-            return render(request, 'add-player.html', {'form': form})
+            return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
 
 class PlayerView(View):
@@ -65,11 +65,10 @@ class PlayerView(View):
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
         observ = player.observationform_set.all()
-        ile = len(observ)
         com = player.comments_set.all()
 
         if observ:
-            s1 = int(sum([one.one for one in observ]) / ile*25)
+            s1 = int(sum([one.one for one in observ]) / len(observ)*25)
             s2 = int(sum([two.two for two in observ]) / len(observ)*25)
             s3 = int(sum([three.three for three in observ]) / len(observ)*25)
             s4 = int(sum([four.four for four in observ]) / len(observ)*25)
@@ -139,24 +138,41 @@ class PlayerEditView(View):
         def get(self, request, player_id):
             player = get_object_or_404(Player, pk=player_id)
             form = PlayerForm(instance=player)
-            form2 = CommentsForm()
-            return render(request, 'edit-player.html', {'form': form, 'player': player, 'form2': form2})
+            return render(request, 'edit-player.html', {'form': form, 'player': player})
 
         def post(self, request, player_id):
             player = get_object_or_404(Player, pk=player_id)
-            PlayerFormset = formset_factory(PlayerForm)
-            CommentsFormset = formset_factory(CommentsForm)
-            if request.method == "POST":
-                form = PlayerFormset(request.POST, prefix='play')
-                form2 = CommentsFormset(request.POST, prefix='com')
-                if form.is_valid() and form2.is_valid():
-                    form.save()
-                    form2.save()
-                    return redirect('/player/{}'.format(player_id), {'form': form, 'form2': form2, 'player': player})
+            form = PlayerForm(request.POST, instance=player)
+            if form.is_valid():
+                form.save()
+                return redirect('/player/{}'.format(player_id))
             else:
-                form = PlayerFormset(prefix='play')
-                form2 = CommentsFormset(prefix='com')
-                return render(request, 'edit-player.html', {'form': form, 'form2': form2, 'player': player})
+                return render(request, 'edit-player.html', {'form': form})
+
+# class AddPlayerView(View):
+#     # login_url = '/login/'
+#     # redirect_field_name = '/login/'
+#
+#     def get(self, request):
+#         form = PlayerForm()
+#         form2 = CommentsForm()
+#         return render(request, 'add-player.html', {'form': form, 'form2': form2})
+#
+#     def post(self, request):
+#         form = PlayerForm(request.POST)
+#         form2 = CommentsForm(request.POST)
+#         if form.is_valid() and form2.is_valid():
+#             new_player = form.save(commit=False)
+#             new_player.save()
+#             player_id = new_player.id
+#
+#             new_comm = form2.save(commit=False)
+#             new_comm.player = new_player
+#             new_comm.save()
+#
+#             return redirect('/player/{}'.format(player_id))
+#         else:
+#             return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
 
 class ObservationFormView(View):
@@ -291,3 +307,35 @@ class CalendarDeleteView(View):
         #     room = Room.objects.get(id=id)
         #     room.delete()
         #     return redirect('/')
+
+class AddCommentFormView(View):
+
+    def get(self, request, player_id):
+        form = CommentsForm()
+        player = Player.objects.get(pk=player_id)
+        return render(request, 'comment_add.html', {'form': form, 'player': player})
+
+    def post(self, request, player_id):
+        player = Player.objects.get(pk=player_id)
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.player = player
+            new_comment.save()
+            return redirect('/player/{}'.format(player_id))
+        else:
+            return render(request, 'comment_add.html', {'form': form, 'player': player})
+
+
+class CommentDeleteView(View):
+    def get(self, request, com_id, player_id):
+        player = Player.objects.get(pk=player_id)
+        comm = Comments.objects.get(pk=com_id)
+        return render(request, 'delete-comment.html', {'player': player, 'comm': comm})
+    def post(self, request, com_id, player_id):
+        player = Player.objects.get(pk=player_id)
+        comm = Comments.objects.get(pk=com_id)
+        comm.delete()
+        return redirect('/player/{}'.format(player.id))
+
+

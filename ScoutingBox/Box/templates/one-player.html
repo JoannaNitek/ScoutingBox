@@ -9,7 +9,10 @@
                     <a class="nav-link" href="/form/{{ player.id }}">Obserwuj zawodnika<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/edit_player/{{ player.id }}/">Edytuj zawodnika / dodaj komentarz</a>
+                    <a class="nav-link" href="/edit_player/{{ player.id }}/">Edytuj zawodnika</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_comment/{{ player.id }}">Dodaj komentarz</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Usuń zawodnika</a>
@@ -167,6 +170,7 @@
                         <li class="list-group-item">klub: <b>{{ player.club }}</b></li>
                         <li class="list-group-item">pozycja: <b>{{ player.get_position_display }}</b></li>
                         <li class="list-group-item">status: <b>{{ player.get_status_display }}</b></li>
+                        <li class="list-group-item">agent: <b>{{ player.agent }}</b></li>
                     </ul>
                 <div class="mt-5"></div>
                 <h4>Komentarze</h4>
@@ -179,11 +183,12 @@
                             <p class="card-text">{{ c }}</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                            <small class="text-muted">{{ c.date|timesince }}</small>
+                            <a href="/delete_comment/{{ player.id }}/{{ c.id }}" class="btn btn-dark btn-xs-right active float-right" role="button" aria-pressed="true">Usuń komentarz</a>
                         </div>
                         <div class="mt-1"></div>
+                                        {% endfor %}
                     </div>
-                {% endfor %}
                 </div>
 
             </div>
