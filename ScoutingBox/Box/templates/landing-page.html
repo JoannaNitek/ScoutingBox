@@ -21,7 +21,7 @@
                                 <h5 class="card-title"></h5>
                                 <a href="add_player/" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Dodaj zawodnika</a>
                                     <hr>
-                                <a href="#" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Dodaj obserwacje</a>
+                                <a href='/form' class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Dodaj obserwacje</a>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
             <div class="col-md-auto">
 
             </div>
-            <div class="col col-lg-5">
+            <div class="col col-lg-6">
 
                 <div class="card border-light mb-3" style="max-width: 18rem;">
                     <div class="card-header">Zawodnicy TOP</div>
@@ -39,7 +39,7 @@
                         <div class="mx-auto">
                             {% for p in players %}
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><a href="/player/{{ player.id }}">{{ p }}</a></li>
+                                    <li class="list-group-item"><a href='/player/{{ p.id }}'>{{ p }}</a></li>
                                 </ul>
                             {% endfor %}
                         </div>
@@ -49,14 +49,27 @@
                 <div class="card border-light mb-3" style="max-width: 18rem;">
                     <div class="card-header">Terminarz</div>
                     <div class="card-body">
-
+                    <table class="table table-hover table-bordered">
+                        <tbody>
+                        {% for item in forward %}
+                            <tr>
+                                <td>{{ item.date|date:'Y m d D H:i' }}</td>
+                                <td>{{ item.match }}</td>
+                                <td>{{ item.city }}, {{ item.country }}</td>
+                                <td>{{ item.scout }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                     </div>
                 </div>
 
                 <div class="card border-light mb-3" style="max-width: 18rem;">
                     <div class="card-header">Najnowszy komentarz</div>
                     <div class="card-body">
-
+                        <p>{{ comm.player }}</p>
+                        <p>{{ comm }}</p>
+                        <p>{{ comm.date }}</p>
                     </div>
                 </div>
 

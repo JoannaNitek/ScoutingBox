@@ -1,98 +1,20 @@
 {% extends 'base.html' %}
 {% block container %}
 
-<h4>Usunięto piłkarza</h4>
-    <div class="mx-auto my-3 container-fluid">
-        <div class="row">
-            <div class="col">
-                <a href="/add_player/"><h4>Dodaj piłkarza</h4></a>
-            </div>
-            <div class="col">
-            </div>
+
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <p class="lead">Czy na pewno chcesz usunać zawodnika:</p>
+            <h3>{{ player }}?</h3>
+            <hr class="my-4">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <input type="submit" class="btn mb-5 my-3" style="background-color: #3f51b5; color: #ffeb3b;" value="Usuń">
+
+            </form>
         </div>
     </div>
 
 
-    <div class="mx-auto container-fluid">
-        <table  class="table table-hover table-bordered" id="myTable" >
-            <thead style="background-color: #3f51b5; color: #ffeb3b;">
-            <tr>
-                <th data-field="name" scope="col">Imię i nazwisko</th>
-                <th data-field="year" scope="col">Rocznik</th>
-                <th data-field="club" scope="col">Klub</th>
-                <th data-field="position" scope="col">Pozycja</th>
-                <th data-field="status" scope="col">Status</th>
-                <th data-field="agent" scope="col">Agent</th>
-                <th data-field="agent" scope="col">Kom</th>
-
-
-            </tr>
-            </thead>
-            <tbody>
-            {% for player in players %}
-                <tr>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <a href="/player/{{ player.id }}">{{ player.last_name }} {{ player.first_name }}</a>
-                            <!-- Button trigger modal -->
-{#                            <button type="button" class="btn btn-primary d-inline p-2 komentarz" data-toggle="modal" data-target="#exampleModal" data-kom="{{ player.comments_set.all|join:'<br>'}}">#}
-{#                              Komentarze {{ player.comments_set.count }}#}
-{#                            </button>#}
-                        </div>
-                    </td>
-                    <td>{{ player.year_of_birth }}</td>
-                    <td>{{ player.club }}</td>
-                    <td>{{ player.get_position_display }}</td>
-                    <td>{{ player.get_status_display }}</td>
-                    <td>{{ player.agent|default_if_none:'' }}</td>
-                    <td>{% for c in player.comments_set.all %}
-                        {{ c }}<br>
-                    {% endfor %}</td>
-
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="mb-5"></div></div>
-
-{#    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#                              <div class="modal-dialog" role="document">#}
-{#                                <div class="modal-content">#}
-{#                                  <div class="modal-header">#}
-{#                                    <h5 class="modal-title" id="exampleModalLabel">Komentarze</h5>#}
-{#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                                      <span aria-hidden="true">&times;</span>#}
-{#                                    </button>#}
-{#                                  </div>#}
-{#                                  <div class="modal-body" id="kom">#}
-{##}
-{#                                  </div>#}
-{#                                  <div class="modal-footer">#}
-{#                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-{#                                    <button type="button" class="btn btn-primary">Dodaj komentarz</button>#}
-{#                                  </div>#}
-{#                                </div>#}
-{#                              </div>#}
-{#                            </div>#}
-
-{% endblock %}
-
-
-{% block styles %}
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-{% endblock %}
-
-{% block js %}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-            $('#exampleModal').on('shown.bs.modal', function (e) {
-            console.log('komentarz')
-                $('#kom').html($(e.relatedTarget).data('kom'));
-
-            })
-        } );
-
-    </script>
 {% endblock %}

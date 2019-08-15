@@ -18,8 +18,10 @@ class LandingPageView(View):
 
     def get(self, request):
         players = Player.objects.filter(status=4)
+        forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
+        comm = Comments.objects.latest('date')
 
-        return render(request, 'landing-page.html', {'players': players})
+        return render(request, 'landing-page.html', {'players': players, 'forward': forward, 'comm': comm})
 
 
 class PlayerListView(View):
@@ -149,6 +151,16 @@ class PlayerEditView(View):
             else:
                 return render(request, 'edit-player.html', {'form': form})
 
+
+class PlayerDeleteView(View):
+    def get(self, request, player_id):
+        player = Player.objects.get(pk=player_id)
+        return render(request, 'delete-player.html', {'player': player})
+
+    def post(self, request, player_id):
+        player = Player.objects.get(pk=player_id)
+        player.delete()
+        return redirect('/players/')
 # class AddPlayerView(View):
 #     # login_url = '/login/'
 #     # redirect_field_name = '/login/'
