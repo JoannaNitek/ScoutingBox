@@ -3,7 +3,7 @@ from django.db import models
 
 
 # Create your models here.
-
+from users.models import CustomUser
 
 POSITION = (
     (1, 'Bramkarz'),
@@ -67,7 +67,7 @@ class ObservationList(models.Model):
     # jak stworzyć regex
     city = models.CharField(max_length=200)
     country = models.CharField(max_length=200, null=True, blank=True)
-    # scout = models.ForeignKey(Users, on_delete=models.CASCADE)
+    scout = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
 
 
 class Player(models.Model):
@@ -81,9 +81,9 @@ class Player(models.Model):
     phone = models.IntegerField(null=True, blank=True)
     agent = models.TextField(null=True, blank=True)
 
-
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
 
 class Comments(models.Model):
     comment = models.TextField(null=True, blank=True)
@@ -93,8 +93,9 @@ class Comments(models.Model):
     def __str__(self):
         return self.comment
 
+
 class ObservationForm(models.Model):
-    # scout = models.ForeignKey(Users, on_delete=models.SET_NULL, null=True)
+    scout = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
 # nie chcę usuwać danych stąd kiedy usuniemy scouta
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
     observation = models.IntegerField(choices=OBSERV)

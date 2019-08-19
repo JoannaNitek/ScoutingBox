@@ -3,8 +3,11 @@
     {% load static %}
 
     <div class="container mt-5">
-    <h2>Witaj, </h2>
-    <hr>
+        {% if user.is_authenticated %}
+            <h2>Witaj, {{ user }}</h2>
+        {% endif %}
+
+        <hr>
     </div>
 
     <div class="container">

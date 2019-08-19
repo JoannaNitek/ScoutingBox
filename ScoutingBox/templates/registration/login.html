@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="{% static 'BOX.png' %}" type="image" sizes="16x16">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <title>ScoutingBox</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" style="background-color: #3f51b5;">
+    <a class="navbar-brand" href="/ScoutingBox">
+        <img src="{% static 'logoo.png' %}" height="100px" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+</nav>
+
+<div class="container mt-5">
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-secondary btn-lg" role="button" aria-pressed="true">Zaloguj</button>
+</form>
+</div>
+

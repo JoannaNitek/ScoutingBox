@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
@@ -9,12 +8,10 @@ from django.views import View
 from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
 from .models import Player, ObservationList, Comments, POINTS, ObservationForm
 
-
 # Create your views here.
 
-class LandingPageView(View):
-# dodaj do klasy dziedziczenie po LoginRequiredMixin
-#     login_url = '/login/'
+class LandingPageView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
 
     def get(self, request):
         players = Player.objects.filter(status=4)
@@ -24,9 +21,9 @@ class LandingPageView(View):
         return render(request, 'landing-page.html', {'players': players, 'forward': forward, 'comm': comm})
 
 
-class PlayerListView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class PlayerListView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request):
         players = Player.objects.all().order_by('last_name')
@@ -34,9 +31,9 @@ class PlayerListView(View):
         return render(request, 'player-list-view.html', {'players': players, 'com': com})
 
 
-class AddPlayerView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class AddPlayerView(LoginRequiredMixin,View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request):
         form = PlayerForm()
@@ -60,9 +57,9 @@ class AddPlayerView(View):
             return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
 
-class PlayerView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class PlayerView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
@@ -133,26 +130,29 @@ class PlayerView(View):
         return render(request, 'one-player.html', {"q": q, 'observ': observ, 'player': player, 'com': com, 'stats': context})
 
 
-class PlayerEditView(View):
-        # login_url = '/login/'
-        # redirect_field_name = '/login/'
+class PlayerEditView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
-        def get(self, request, player_id):
-            player = get_object_or_404(Player, pk=player_id)
-            form = PlayerForm(instance=player)
-            return render(request, 'edit-player.html', {'form': form, 'player': player})
+    def get(self, request, player_id):
+        player = get_object_or_404(Player, pk=player_id)
+        form = PlayerForm(instance=player)
+        return render(request, 'edit-player.html', {'form': form, 'player': player})
 
-        def post(self, request, player_id):
-            player = get_object_or_404(Player, pk=player_id)
-            form = PlayerForm(request.POST, instance=player)
-            if form.is_valid():
-                form.save()
-                return redirect('/player/{}'.format(player_id))
-            else:
-                return render(request, 'edit-player.html', {'form': form})
+    def post(self, request, player_id):
+        player = get_object_or_404(Player, pk=player_id)
+        form = PlayerForm(request.POST, instance=player)
+        if form.is_valid():
+            form.save()
+            return redirect('/player/{}'.format(player_id))
+        else:
+            return render(request, 'edit-player.html', {'form': form})
 
 
-class PlayerDeleteView(View):
+class PlayerDeleteView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
+
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
         return render(request, 'delete-player.html', {'player': player})
@@ -161,35 +161,11 @@ class PlayerDeleteView(View):
         player = Player.objects.get(pk=player_id)
         player.delete()
         return redirect('/players/')
-# class AddPlayerView(View):
-#     # login_url = '/login/'
-#     # redirect_field_name = '/login/'
-#
-#     def get(self, request):
-#         form = PlayerForm()
-#         form2 = CommentsForm()
-#         return render(request, 'add-player.html', {'form': form, 'form2': form2})
-#
-#     def post(self, request):
-#         form = PlayerForm(request.POST)
-#         form2 = CommentsForm(request.POST)
-#         if form.is_valid() and form2.is_valid():
-#             new_player = form.save(commit=False)
-#             new_player.save()
-#             player_id = new_player.id
-#
-#             new_comm = form2.save(commit=False)
-#             new_comm.player = new_player
-#             new_comm.save()
-#
-#             return redirect('/player/{}'.format(player_id))
-#         else:
-#             return render(request, 'add-player.html', {'form': form, 'form2': form2})
 
 
-class ObservationFormView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class ObservationFormView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request):
         form = ObservationFormForm()
@@ -226,19 +202,14 @@ class ObservationFormView(View):
             return render(request, 'form.html', {'form': form})
 
 
-class ObservationFormPlayerView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class ObservationFormPlayerView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request, player_id):
         player = Player.objects.get(pk=player_id)
         initial = {'player': player}
         form = ObservationFormForm(initial={'player': player})
-
-        # def view(request):
-        #     game = Game.objects.get(id=1)  # just an example
-        #     form = UserQueueForm(instance=game)
-        #     return render_to_response('my_template.html', {'form': form})
 
         QUESTIONS = {
             '1': 'Gra w ofensywie',
@@ -273,8 +244,10 @@ class ObservationFormPlayerView(View):
         else:
             return render(request, 'form-player.html', {'form': form, 'player': player})
 
-class CalendarList(View):
-    # login_url = '/login/'
+
+class CalendarList(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request):
         calendar = ObservationList.objects.filter(date__lte=datetime.today())
@@ -283,9 +256,9 @@ class CalendarList(View):
         return render(request, 'calendar-list.html', {'calendar': calendar, 'forward': forward})
 
 
-class CalendarAdd(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class CalendarAdd(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request):
         form = Calendar()
@@ -302,9 +275,9 @@ class CalendarAdd(View):
             return render(request, 'calendar-add.html', {'form': form})
 
 
-class CalendarDeleteView(View):
-    # login_url = '/login/'
-    # redirect_field_name = '/login/'
+class CalendarDeleteView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request, id):
         calendar = ObservationList.objects.get(pk=id)
@@ -315,12 +288,10 @@ class CalendarDeleteView(View):
         calendar.delete()
         return redirect('/calendar/')
 
-        # def post(self, request, id):
-        #     room = Room.objects.get(id=id)
-        #     room.delete()
-        #     return redirect('/')
 
-class AddCommentFormView(View):
+class AddCommentFormView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
 
     def get(self, request, player_id):
         form = CommentsForm()
@@ -339,11 +310,15 @@ class AddCommentFormView(View):
             return render(request, 'comment_add.html', {'form': form, 'player': player})
 
 
-class CommentDeleteView(View):
+class CommentDeleteView(LoginRequiredMixin, View):
+    login_url = '/accounts/login/'
+    redirect_field_name = '/login/'
+
     def get(self, request, com_id, player_id):
         player = Player.objects.get(pk=player_id)
         comm = Comments.objects.get(pk=com_id)
         return render(request, 'delete-comment.html', {'player': player, 'comm': comm})
+
     def post(self, request, com_id, player_id):
         player = Player.objects.get(pk=player_id)
         comm = Comments.objects.get(pk=com_id)

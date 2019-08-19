@@ -13,11 +13,11 @@
 <body>
 
 <nav class="navbar navbar-expand-lg" style="background-color: #3f51b5;">
-    <a class="navbar-brand" href="/ScoutingBox/">
+    <a class="navbar-brand" href="/ScoutingBox">
         <img src="{% static 'logoo.png' %}" height="100px" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" style="color: #ffeb3b;"> Menu </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
@@ -34,46 +34,16 @@
                 <a class="nav-link" href="/form/" style="color: #ffeb3b;">Formularz dla obserwacji</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #ffeb3b;">Wyloguj</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'logout' %}" style="color: #ffeb3b;">Wyloguj</a>
+                {% else %}
+                    <a href="{% url 'login' %}"class="nav-link" style="color: #ffeb3b;">Zaloguj</a>
+                {% endif %}
             </li>
         </ul>
     </div>
 </nav>
 
-{#    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #3f51b5;">#}
-{#        <nav class="navbar sticy-top">#}
-{#            <a class="navbar-brand" href="/ScoutingBox/">#}
-{#                <img src="{% static 'logoo.png' %}" height="100px" alt="">#}
-{#            </a>#}
-{#        </nav>#}
-{#        <nav class="navbar-text">#}
-{#            {% if user.is_authenticated %}#}
-{#                <a class="nav-link" style="color: #ffeb3b; font-size: larger;" href="#">{{ user }}</a>#}
-{#            {% endif %}#}
-{#            <a class="nav-link" style="color: #ffeb3b; font-size: larger" href="/accounts/login/">Wyloguj</a>#}
-{#        </nav>#}
-{#    </nav>#}
-
-
-{#    <nav class="navbar navbar-light bg-light">#}
-{#        <ul class="nav nav-tabs ">#}
-{#            <li class="nav-item">#}
-{#                <a class="nav-link" href="/ScoutingBox/" style="color: #3f51b5;">Home</a>#}
-{#            </li>#}
-{#            <li class="nav-item">#}
-{#                <a class="nav-link" href="/players/" style="color: #3f51b5;">Piłkarze</a>#}
-{#            </li>#}
-{#            <li class="nav-item">#}
-{#                <a class="nav-link" href="/calendar/" style="color: #3f51b5;">Terminarz obserwacji</a>#}
-{#            </li>#}
-{#            <li class="nav-item">#}
-{#                <a class="nav-link" href="/calendar_add/" style="color: #3f51b5;">Dodaj obserwację do terminarza</a>#}
-{#            </li>#}
-{#            <li class="nav-item">#}
-{#                <a class="nav-link" href="/form/" style="color: #3f51b5;">Formularz dla obserwacji</a>#}
-{#            </li>#}
-{#        </ul></nav>#}
-{##}
 
 
 <!-- jQuery library -->
@@ -88,10 +58,12 @@
 {% block container %}
 {% endblock %}
 
-<div class="container">
-    <nav class="navbar fixed-bottom" style="background: #3f51b5;">
+
+    <nav class="navbar" style="background: #3f51b5; opacity: 0.5">
+        <div class="container">
         <h4 style="color: #ffeb3b;">Need help?</h4>
-    </nav></div>
+        </div>
+    </nav>
 <div class="container-fluid mb-5"></div>
 
 {% block footer %}

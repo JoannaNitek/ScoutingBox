@@ -14,14 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
     PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView, CalendarDeleteView, ObservationFormPlayerView, AddCommentFormView, CommentDeleteView, PlayerDeleteView
+
 from django.conf import settings
 from django.conf.urls.static import static
+from users import views as core_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+
     path('ScoutingBox/', LandingPageView.as_view()),
     path('players/', PlayerListView.as_view()),
     re_path('add_player/', AddPlayerView.as_view()),
@@ -35,4 +41,5 @@ urlpatterns = [
     re_path(r'^add_comment/(?P<player_id>(\d)+)', AddCommentFormView.as_view()),
     re_path(r'^delete_comment/(?P<player_id>(\d)+)/(?P<com_id>(\d)+)', CommentDeleteView.as_view()),
     re_path(r'^delete_player/(?P<player_id>(\d)+)', PlayerDeleteView.as_view()),
+
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
