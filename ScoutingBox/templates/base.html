@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,40 +10,64 @@
 
     <meta charset="UTF-8">
     <title>ScoutingBox</title>
+    <style>
+        body {
+            background-color: whitesmoke;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg" style="background-color: #3f51b5;">
-    <a class="navbar-brand" href="/ScoutingBox">
-        <img src="{% static 'logoo.png' %}" height="100px" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon" style="color: #ffeb3b;"> Menu </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/players/" style="color: #ffeb3b;">Piłkarze</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/calendar/" style="color: #ffeb3b;">Terminarz obserwacji</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/calendar_add/" style="color: #ffeb3b;">Dodaj obserwację do terminarza</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/form/" style="color: #ffeb3b;">Formularz dla obserwacji</a>
-            </li>
-            <li class="nav-item">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'logout' %}" style="color: #ffeb3b;">Wyloguj</a>
-                {% else %}
-                    <a href="{% url 'login' %}"class="nav-link" style="color: #ffeb3b;">Zaloguj</a>
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-</nav>
+<div id="topheader">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/ScoutingBox/">
+            <img src="{% static 'logoo.png' %}" height="50px" alt="Scouting Box">
+        </a>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="1">
+                <li>
+                    <a class="nav-link" href="/players/" style="text-transform: uppercase" >Piłkarze<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="">
+                    <a class="nav-link" href="/calendar/" style="text-transform: uppercase">Terminarz</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/form/" style="text-transform: uppercase">Formularz</a>
+                </li>
+            </ul>
+        </div>
+        <div id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav navbar-right" id="2">
+                <li>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'logout' %}" style="text-transform: uppercase;">Wyloguj</a>
+                    {% else %}
+                        <a href="{% url 'login' %}"class="nav-link" style="text-transform: uppercase;">Zaloguj</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'change_password' %}" style="text-transform: uppercase;">Zmień hasło</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+{#        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>#}
+{#<script>#}
+{#    $('#1, #2').on('click', 'li', function(){#}
+{#        $('#1 .li.active, #2 .li.active').removeClass('active');#}
+{#        $(this).addClass('active');#}
+{#});#}
+{#</script>#}
+
+    </nav>
+</div>
+
+
 
 
 
@@ -54,6 +79,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 {% block container %}
 {% endblock %}
@@ -72,6 +98,7 @@
 
 {% block js %}{% endblock %}
 {% block datetime-body %}{% endblock %}
+
 
 </body>
 

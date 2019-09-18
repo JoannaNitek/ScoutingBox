@@ -20,14 +20,14 @@ from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
 
 from django.conf import settings
 from django.conf.urls.static import static
-from users import views as core_views
+from users.views import change_password
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('accounts/', include('django.contrib.auth.urls')),
-
+    path('password/', change_password, name='change_password'),
     path('ScoutingBox/', LandingPageView.as_view()),
     path('players/', PlayerListView.as_view()),
     re_path('add_player/', AddPlayerView.as_view()),
