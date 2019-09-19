@@ -10,38 +10,10 @@
         <form action="#" method="POST" class="mt-4">
             {% csrf_token %}
 
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                    <div class="card-header" id="player">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#player1" aria-expanded="true" aria-controls="player1">
-                                {{ form.player.label_tag }}
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="player1" class="collapse show" aria-labelledby="player" data-parent="#accordionExample">
-                        <div class="card-body">
-                            {{ form.player }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header" id="observ">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#observ" aria-expanded="false" aria-controls="observ">
-                                {{ form.observation.label_tag }}
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="observ" class="collapse" aria-labelledby="observ" data-parent="#accordionExample">
-                        <div class="card-body">
-                            {{ form.observation }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            {{ form.player.label_tag }}
+            {{ form.player }}
+            {{ form.observation.label_tag }}
+            {{ form.observation }}
 
 {#Pytania#}
         <h5 class="mt-3">Pytania opisowe</h5>
@@ -275,12 +247,12 @@
             <div class="card">
                 <div class="card-header" id="Seven">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Seven" aria-expanded="false" aria-controls="Seven">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                             {{ form.seven.label_tag }}
                         </button>
                     </h2>
                 </div>
-                <div id="Seven" class="collapse" aria-labelledby="Seven" data-parent="#accordionExample">
+                <div id="collapseSeven" class="collapse" aria-labelledby="Seven" data-parent="#accordionExample">
                     <div class="card-body">
                         {{ form.seven }}
                     </div>
@@ -290,12 +262,12 @@
             <div class="card">
                 <div class="card-header" id="Eight">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Eight" aria-expanded="false" aria-controls="Eight">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                             {{ form.eight.label_tag }}
                         </button>
                     </h2>
                 </div>
-                <div id="Eight" class="collapse" aria-labelledby="Eight" data-parent="#accordionExample">
+                <div id="collapseEight" class="collapse" aria-labelledby="Eight" data-parent="#accordionExample">
                     <div class="card-body">
                         {{ form.eight }}
                     </div>
@@ -305,12 +277,12 @@
             <div class="card">
                 <div class="card-header" id="Nine">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Nine" aria-expanded="false" aria-controls="Nine">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                             {{ form.nine.label_tag }}
                         </button>
                     </h2>
                 </div>
-                <div id="Nine" class="collapse" aria-labelledby="Nine" data-parent="#accordionExample">
+                <div id="collapseNine" class="collapse" aria-labelledby="Nine" data-parent="#accordionExample">
                     <div class="card-body">
                         {{ form.nine }}
                     </div>
@@ -320,12 +292,12 @@
             <div class="card">
                 <div class="card-header" id="Ten">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Ten" aria-expanded="false" aria-controls="Ten">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                             {{ form.ten.label_tag }}
                         </button>
                     </h2>
                 </div>
-                <div id="Ten" class="collapse" aria-labelledby="Ten" data-parent="#accordionExample">
+                <div id="collapseTen" class="collapse" aria-labelledby="Ten" data-parent="#accordionExample">
                     <div class="card-body">
                         {{ form.ten }}
                     </div>
@@ -335,12 +307,12 @@
             <div class="card">
                 <div class="card-header" id="Eleven">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Eleven" aria-expanded="false" aria-controls="Eleven">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
                             {{ form.eleven.label_tag }}
                         </button>
                     </h2>
                 </div>
-                <div id="Eleven" class="collapse" aria-labelledby="Eleven" data-parent="#accordionExample">
+                <div id="collapseEleven" class="collapse" aria-labelledby="Eleven" data-parent="#accordionExample">
                     <div class="card-body">
                         {{ form.eleven }}
                     </div>
@@ -353,7 +325,7 @@
 
 
 
-        <input type="submit" class="btn mb-5 my-3" style="background-color: #3f51b5; color: #ffeb3b;" value="Dodaj obserwacje">
+        <input type="submit" class="btn btn-dark mb-5 my-3" value="Dodaj obserwacje">
     </form>
     </div>
 

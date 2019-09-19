@@ -10,11 +10,21 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg" style="background-color: #3f51b5;">
-    <a class="navbar-brand" href="/ScoutingBox">
-        <img src="{% static 'logoo.png' %}" height="100px" alt="">
-    </a>
-</nav>
+{#<nav class="navbar navbar-expand-lg" style="background-color: #3f51b5;">#}
+{#    <a class="navbar-brand" href="/ScoutingBox">#}
+{#        <img src="{% static 'logoo.png' %}" height="100px" alt="">#}
+{#    </a>#}
+{#</nav>#}
+<div id="topheader">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/ScoutingBox/">
+            <img src="{% static 'logoo.png' %}" height="50px" alt="Scouting Box">
+        </a>
+    </nav></div>
 
 <div class="container mt-5">
 <h2>Login</h2>

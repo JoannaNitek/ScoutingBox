@@ -33,59 +33,74 @@
                     <div class="col">
                         <h4>Oceny opisowe</h4>
                         <hr>
-
-                        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+{#<div class="container">#}
+{#        <div class="my-5">#}
+{#            <div class="card text-center card border-dark mb-3">#}
+{#                <div class="card-header">#}
+{#                    Najnowszy komentarz#}
+{#                </div>#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ comm.player}}</h5>#}
+{#                    <p class="card-text">"{{ comm }}"</p>#}
+{#                </div>#}
+{#                <div class="card-footer text-muted">#}
+{#                    {{ comm.date }}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Gra w ofensywie</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.first_desc }}</p>
+                                    <h5 class="card-title">{{ val.first_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>
                                 {% endfor %}
                             </div>
                         </div>
 
-                        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Gra w defensywie</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.second_desc }}</p>{% endfor %}
+                                    <h5 class="card-title">{{ val.second_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
                             </div>
                         </div>
 
-                        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Gra bez piłki</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.third_desc }}</p>{% endfor %}
+                                    <h5 class="card-title">{{ val.third_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
                             </div>
                         </div>
 
-                        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Cechy wolicjonalne</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.fourth_desc }}</p>{% endfor %}
+                                    <h5 class="card-title">{{ val.fourth_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
                             </div>
                         </div>
 
-                        <div class="card border-primary mt-3" style="max-width: 40rem; color: #3f51b5;">
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Inne</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.fifth_desc }}</p>{% endfor %}
+                                    <h5 class="card-title">{{ val.fifth_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
                             </div>
                         </div>
 
-                        <div class="card border-primary mt-3 mb-5" style="max-width: 40rem; color: #3f51b5;">
+                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
                             <div class="card-header" data-toggle="collapse">Wnioski</div>
-                            <div class="card-body text-primary">
+                            <div class="card-body">
                                 {% for val in observ %}
-                                    <h6 class="card-title">{{ val.scout }}</h6>
-                                    <p class="card-text">{{ val.sixth_desc }}</p>{% endfor %}
+                                    <h5 class="card-title">{{ val.sixth_desc }}</h5>
+                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
                             </div>
                         </div>
                     </div>
