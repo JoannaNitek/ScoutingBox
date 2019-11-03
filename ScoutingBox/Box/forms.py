@@ -1,8 +1,8 @@
 from django import forms
 from tempus_dominus.widgets import DateTimePicker
+from django.contrib.auth import get_user_model
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
-    ObservationForm, ObservationList, Comments
-
+    ObservationForm, Comments, ObservationList
 
 class PlayerForm(forms.ModelForm):
     first_name = forms.CharField(label='Imię', widget=forms.TextInput
@@ -22,10 +22,10 @@ class PlayerForm(forms.ModelForm):
     agent = forms.CharField(required=False, label='Kontakt do agenta',
                             widget=forms.Textarea(attrs={'class': 'form-control'}))
 
-
     class Meta:
         model = Player
         fields = '__all__'
+
 
 class ObservationFormForm(forms.ModelForm):
 
@@ -69,7 +69,6 @@ class ObservationFormForm(forms.ModelForm):
     eleven = forms.ChoiceField(choices=POINTS, label='Gra w powietrzu',
          widget=forms.Select(attrs={'class': 'form-control'}))
 
-
     class Meta:
         model = ObservationForm
         exclude = ['scout']
@@ -77,7 +76,7 @@ class ObservationFormForm(forms.ModelForm):
 
 
 class Calendar(forms.ModelForm):
-    date = forms.DateTimeField(input_formats=['%Y/%m/%d %H:%M'], label= 'Data i godzina', widget=forms.widgets.DateTimeInput(attrs={'id': 'datetimepicker', 'type': 'datetime'}))
+    date = forms.DateTimeField(input_formats=['%Y/%m/%d %H:%M'], widget=forms.widgets.DateTimeInput(attrs={'id': 'datetimepicker', 'type': 'datetime'}))
     match = forms.CharField(label='Mecz', widget=forms.TextInput(attrs={'class': 'form-control'}))
     city = forms.CharField(label='Miasto', widget=forms.TextInput
         (attrs={'class': 'form-control'}))
@@ -86,7 +85,6 @@ class Calendar(forms.ModelForm):
     # scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
     #      widget=forms.Select(attrs={'class': 'form-control'}))
 
-
     class Meta:
         model = ObservationList
         exclude = ['scout']
@@ -94,7 +92,6 @@ class Calendar(forms.ModelForm):
 
 class CommentsForm(forms.ModelForm):
     comment = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control'}))
-
 
     class Meta:
         model = Comments

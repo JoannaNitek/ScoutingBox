@@ -5,13 +5,13 @@
         <form action="#" method="post" class="mt-4">
             {% csrf_token %}
 
-            <h4>Data</h4><br>
+            <h4>{{ form.date.label_tag }}</h4><br>
             {{ form.date }}
-            <h4>Mecz</h4>
+            <h4>{{ form.match.label_tag }}</h4>
             {{ form.match }}
-            <h4>Miasto</h4>
+            <h4>{{ form.city.label_tag }}</h4>
             {{ form.city }}
-            <h4>Kraj</h4>
+            <h4>{{ form.country.label_tag }}</h4>
             {{ form.country }}
 
             <input type="submit" class='btn btn-dark mt-4' value="Dodaj obserwację">
@@ -19,21 +19,31 @@
     </div>
     <div class="container mb-5"></div>
 
+  <script>
+    $(function () {
+      $("#datetimepicker").datetimepicker();
+    });
+  </script>
+
+
+
 {% endblock %}
 
 {% block datetime-head %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block datetime-body %}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datetimepicker').datetimepicker();
-        });
-    </script>
+    <script type="text"></script>
+
 {% endblock %}
 
 

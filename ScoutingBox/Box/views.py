@@ -1,24 +1,23 @@
-from datetime import datetime
-
+from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
 from django.views import View
-
-from .forms import PlayerForm, ObservationFormForm, Calendar, CommentsForm
-from .models import Player, ObservationList, Comments, POINTS, ObservationForm
+from datetime import datetime
+from .forms import PlayerForm, ObservationFormForm, CommentsForm, Calendar
+from .models import Player, Comments, POINTS, ObservationForm, ObservationList
 
 # Create your views here.
+
 
 class LandingPageView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
         players = Player.objects.filter(status=4)
-        forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
+        # forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
         comm = Comments.objects.latest('date')
 
-        return render(request, 'landing-page.html', {'players': players, 'forward': forward, 'comm': comm})
+        return render(request, 'landing-page.html', {'players': players, 'comm': comm})
 
 
 class PlayerListView(LoginRequiredMixin, View):
@@ -250,8 +249,8 @@ class CalendarList(LoginRequiredMixin, View):
     redirect_field_name = '/login/'
 
     def get(self, request):
-        calendar = ObservationList.objects.filter(date__lte=datetime.today())
-        forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
+        calendar = ObservationList.objects.filter(date__lte=timezone.now())
+        forward = ObservationList.objects.filter(date__gte=timezone.now()).order_by('date')
 
         return render(request, 'calendar-list.html', {'calendar': calendar, 'forward': forward})
 
@@ -270,7 +269,7 @@ class CalendarAdd(LoginRequiredMixin, View):
             new_observation = form.save(commit=False)
             new_observation.scout = request.user
             new_observation.save()
-            return redirect('/calendar/')
+            return redirect('/calendar')
         else:
             return render(request, 'calendar-add.html', {'form': form})
 

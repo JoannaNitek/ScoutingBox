@@ -33,33 +33,33 @@
         </div>
     </div>
 
-    <div class="container mt-5">
-        <div class="card text-center card border-dark mb-3">
-            <div class="card-header">
-                Terminarz - nadchodzące obserwacje
-            </div>
-            <div class="card-body">
-                <table class="table table-hover table-bordered table-dark">
-
-                    <thead>
-                    <th>Data</th>
-                    <th>Mecz</th>
-                    <th>Miejsce</th>
-                    <th>Obserwujący</th>
-                    </thead>
-                    <tbody>
-                    {% for item in forward %}
-                        <tr>
-                            <td>{{ item.date|date:'Y m d D H:i' }}</td>
-                            <td>{{ item.match }}</td>
-                            <td>{{ item.city }}, {{ item.country }}</td>
-                            <td>{{ item.scout }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+{#    <div class="container mt-5">#}
+{#        <div class="card text-center card border-dark mb-3">#}
+{#            <div class="card-header">#}
+{#                Terminarz - nadchodzące obserwacje#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <table class="table table-hover table-bordered table-dark">#}
+{##}
+{#                    <thead>#}
+{#                    <th>Data</th>#}
+{#                    <th>Mecz</th>#}
+{#                    <th>Miejsce</th>#}
+{#                    <th>Obserwujący</th>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    {% for item in forward %}#}
+{#                        <tr>#}
+{#                            <td>{{ item.date|date:'Y m d D H:i' }}</td>#}
+{#                            <td>{{ item.match }}</td>#}
+{#                            <td>{{ item.city }}, {{ item.country }}</td>#}
+{#                            <td>{{ item.scout }}</td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
 
         <div class="container">
         <div class="my-5">

@@ -1,9 +1,9 @@
 
+
 from django.db import models
 
-
-# Create your models here.
 from users.models import CustomUser
+
 
 POSITION = (
     (1, 'Bramkarz'),
@@ -64,7 +64,6 @@ QUESTION = (
 class ObservationList(models.Model):
     date = models.DateTimeField(max_length=200)
     match = models.CharField(max_length=200)
-    # jak stworzyć regex
     city = models.CharField(max_length=200)
     country = models.CharField(max_length=200, null=True, blank=True)
     scout = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)

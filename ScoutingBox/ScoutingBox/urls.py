@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path, include
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
-    PlayerView, ObservationFormView, CalendarAdd, CalendarList, PlayerEditView, CalendarDeleteView, ObservationFormPlayerView, AddCommentFormView, CommentDeleteView, PlayerDeleteView
+    PlayerView, ObservationFormView, PlayerEditView, ObservationFormPlayerView, AddCommentFormView, \
+    CommentDeleteView, PlayerDeleteView, CalendarList, CalendarAdd, CalendarDeleteView
 
 from django.conf import settings
 from django.conf.urls.static import static
