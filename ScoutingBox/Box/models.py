@@ -85,7 +85,7 @@ class Player(models.Model):
 
 
 class Comments(models.Model):
-    comment = models.TextField(null=True, blank=True)
+    comment = models.TextField(null=True)
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
 

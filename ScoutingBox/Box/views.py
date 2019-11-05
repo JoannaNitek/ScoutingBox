@@ -15,9 +15,9 @@ class LandingPageView(LoginRequiredMixin, View):
     def get(self, request):
         players = Player.objects.filter(status=4)
         # forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
-        comm = Comments.objects.latest('date')
+        # comm = Comments.objects.latest('date')
 
-        return render(request, 'landing-page.html', {'players': players, 'comm': comm})
+        return render(request, 'landing-page.html', {'players': players})
 
 
 class PlayerListView(LoginRequiredMixin, View):
@@ -36,24 +36,24 @@ class AddPlayerView(LoginRequiredMixin,View):
 
     def get(self, request):
         form = PlayerForm()
-        form2 = CommentsForm()
-        return render(request, 'add-player.html', {'form': form, 'form2': form2})
+        # form2 = CommentsForm()
+        return render(request, 'add-player.html', {'form': form})
 
     def post(self, request):
         form = PlayerForm(request.POST)
-        form2 = CommentsForm(request.POST)
-        if form.is_valid() and form2.is_valid():
+        # form2 = CommentsForm(request.POST)
+        if form.is_valid():
             new_player = form.save(commit=False)
             new_player.save()
             player_id = new_player.id
-
-            new_comm = form2.save(commit=False)
-            new_comm.player = new_player
-            new_comm.save()
+            # if form2.is_valid() and form2 is not None:
+            #     new_comm = form2.save(commit=False)
+            #     new_comm.player = new_player
+            #     new_comm.save()
 
             return redirect('/player/{}'.format(player_id))
         else:
-            return render(request, 'add-player.html', {'form': form, 'form2': form2})
+            return render(request, 'add-player.html', {'form': form})
 
 
 class PlayerView(LoginRequiredMixin, View):
