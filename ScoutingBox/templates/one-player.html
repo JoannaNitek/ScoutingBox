@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block container %}
-    <div class="mt-3"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    {#<div class="container shadow-sm p-3 mb-5 bg-white rounded" style="background-color: #f6f6f6">#}
+    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top">
         <h3 style="color: whitesmoke">{{ player.first_name }} {{ player.last_name }}</h3>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="color: whitesmoke">  </span>
@@ -9,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/form/{{ player.id }}">Obserwuj zawodnika<span class="sr-only"></span></a>
+                    <a class="nav-link" href="/form/{{ player.id }}">Obserwuj zawodnika</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/edit_player/{{ player.id }}/">Edytuj zawodnika</a>
@@ -20,201 +21,232 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/delete_player/{{ player.id }}">Usuń zawodnika</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Porównaj z ...
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for p in players %}
+                        <a class="dropdown-item" href="/{{ player.id }}/comparison/{{ p.id }}">{{ p }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container-fluid mt-3">
-        <div class="row">
-            <div class="col">
-
-
-                <div class="mt-5 row">
-                    <div class="col">
-                        <h4>Oceny opisowe</h4>
-                        <hr>
-{#<div class="container">#}
-{#        <div class="my-5">#}
-{#            <div class="card text-center card border-dark mb-3">#}
-{#                <div class="card-header">#}
-{#                    Najnowszy komentarz#}
-{#                </div>#}
-{#                <div class="card-body">#}
-{#                    <h5 class="card-title">{{ comm.player}}</h5>#}
-{#                    <p class="card-text">"{{ comm }}"</p>#}
-{#                </div>#}
-{#                <div class="card-footer text-muted">#}
-{#                    {{ comm.date }}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Gra w ofensywie</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.first_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Gra w defensywie</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.second_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Gra bez piłki</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.third_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Cechy wolicjonalne</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.fourth_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Inne</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.fifth_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="card text-center card border-dark mb-3" style="max-width: 40rem;">
-                            <div class="card-header" data-toggle="collapse">Wnioski</div>
-                            <div class="card-body">
-                                {% for val in observ %}
-                                    <h5 class="card-title">{{ val.sixth_desc }}</h5>
-                                    <p class="card-text">{{ val.scout }}</p>{% endfor %}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col mb-5">
-                        <h4>Podsumowanie punktów</h4>
-                        <hr>
-
-                        <h5>{{ q.1a }}</h5>
-
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s1 }}%;" aria-valuenow="{{ stats.s1 }}" aria-valuemin="0" aria-valuemax="100">{{ stats.s1 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.2a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s2 }}%" aria-valuenow="{{ stats.s2 }}" aria-valuemin="0" aria-valuemax="100">{{ stats.s2 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.3a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s3 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s3 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.4a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s4 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s4 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.5a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s5 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s5 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.6a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s6 }}%"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s6 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.7a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s7 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s7 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.8a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width: {{ stats.s8 }}%" aria-valuenow="{{ stats.s8 }}" aria-valuemin="0" aria-valuemax="100">{{ stats.s8 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.9a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s9 }}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{ stats.s9 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.10a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s10 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s10 }}%</div>
-                        </div>
-
-                        <h5 class="mt-3">{{ q.11a }}</h5>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <div class="progress-bar" role="progressbar" style="background-color: #3f51b5; color: #ffeb3b; width:{{ stats.s11 }}%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ stats.s11 }}%</div>
-                        </div>
-                    </div>
-                    <div class="col-1 mb-1"></div>
+    <div class="row">
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Informacje o zawodniku:</h5>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">@ :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.mail|default_if_none:'nie podano' }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">tel :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.phone|default_if_none:'nie podano' }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">rocznik :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.year_of_birth  }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">klub :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.club  }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">pozycja :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.get_position_display }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">status :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.get_status_display }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><small class="text-muted">agent :</small></td>
+                            <td style="text-align: center"><small><b>{{ player.agent|default_if_none:'nie podano' }}</b></small></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-{#Druga kolumna - Przerwa#}
-        <div class="col-md-auto">
-
         </div>
+            <div class="col-md-8 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 bg-white rounded border border-light">
+                <div class="card-body">
 
-{#Trzecia kolumna z trzech - komentarze#}
-            <div class="col col-lg-4 mt-6">
-                <div class="container-fluid mb-5 mt-5"></div>
+                    <h5 class="card-title mb-5">Podsumowanie punktów:</h5>
+                    <canvas id="myChart"></canvas>
 
-                <h4>Informacje o zawodniku</h4>
-                <hr>
-                    <ul class="list-group">
-                        <li class="list-group-item">@: <b>{{ player.mail|default_if_none:'nie podano' }}</b></li>
-                        <li class="list-group-item">tel: <b>{{ player.phone|default_if_none:'nie podano' }}</b></li>
-                        <li class="list-group-item">rocznik: <b>{{ player.year_of_birth }}</b></li>
-                        <li class="list-group-item">klub: <b>{{ player.club }}</b></li>
-                        <li class="list-group-item">pozycja: <b>{{ player.get_position_display }}</b></li>
-                        <li class="list-group-item">status: <b>{{ player.get_status_display }}</b></li>
-                        <li class="list-group-item">agent: <b>{{ player.agent }}</b></li>
-                    </ul>
-                <div class="mt-5"></div>
-                <h4>Komentarze</h4>
-                <hr>
-                {%  for c in com %}
-                    <div class="card-group">
-                    <div class="card">
+                </div>
+            </div>
+        </div>
+    </div>
 
-                        <div class="card-body">
-                            <p class="card-text">{{ c }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">{{ c.date|timesince }}</small>
-                            <a href="/delete_comment/{{ player.id }}/{{ c.id }}" class="btn btn-dark btn-xs-right active float-right" role="button" aria-pressed="true">Usuń komentarz</a>
-                        </div>
-                        <div class="mt-1"></div>
-                                        {% endfor %}
-                    </div>
+    <div class="row">
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-5 bg-white rounded border-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Komentarze:</h5>
+                    <table class="table table-bordered">
+                        <tbody>
+                        {% for c in com %}
+                            <tr>
+                                <td colspan="2"><small><b>{{ c }}</b></small></td>
+                            </tr>
+                            <tr>
+                                <td><small class="text-muted">{{ c.date|timesince }}</small></td>
+                                <td><a href="/delete_comment/{{ player.id }}/{{ c.id }}">Usuń</a> </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
         </div>
+
+        <div class="col-md-8 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-5 bg-white rounded border border-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Oceny opisowe:</h5>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Gra w ofensywie</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr><td>{{ val.first_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Gra w defensywie</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr><td>{{ val.second_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Gra bez piłki</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr><td>{{ val.third_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Cechy wolicjonalne</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr>
+                                <td>{{ val.fourth_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Inne</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr>
+                                <td>{{ val.fifth_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><small><b>Wnioski</b></small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for val in observ %}
+                            <tr>
+                                <td>{{ val.sixth_desc }}</td>
+                                <td><small class="text-muted" style="text-align: center">{{ val.scout }}</small></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
 
 
+{% endblock %}
 
+{% block chart %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+    <script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+        labels: ["{{ q.1a }}", "{{ q.2a }}", "{{ q.3a }}", "{{ q.4a }}", "{{ q.5a }}",
+            "{{ q.6a }}", "{{ q.7a }}", "{{ q.8a }}", "{{ q.9a }}", "{{ q.10a }}", "{{ q.11a }}"],
+        datasets: [{
+            label: 'Podsumowanie punktów',
+            data: ["{{ stats.s1 }}", "{{ stats.s2 }}", "{{ stats.s3 }}", "{{ stats.s4 }}", "{{ stats.s5 }}",
+            "{{ stats.s6 }}", "{{ stats.s7 }}", "{{ stats.s8 }}", "{{ stats.s9 }}", "{{ stats.s10 }}", "{{ stats.s11 }}"],
+            backgroundColor: [
+                'rgba(91, 192, 222, 0.2)'
+            ],
+            borderColor: [
+                'rgba(91, 192, 222, 0.9)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scale: {
+            ticks: {
+                beginAtZero: true,
+
+                suggestedMax: 100
+            }
+        }, legend: {
+            display: false
+        }
+    }
+});
+</script>
 {% endblock %}

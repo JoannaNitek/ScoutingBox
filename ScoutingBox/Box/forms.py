@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from Box.models import Player, STATUS, POSITION, OBSERV, POINTS, \
     ObservationForm, Comments, ObservationList
 
+
 class PlayerForm(forms.ModelForm):
     first_name = forms.CharField(label='Imię', widget=forms.TextInput
         (attrs={'class': 'form-control'}))
@@ -72,7 +73,6 @@ class ObservationFormForm(forms.ModelForm):
     class Meta:
         model = ObservationForm
         exclude = ['scout']
-
 
 
 class Calendar(forms.ModelForm):

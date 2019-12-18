@@ -5,149 +5,156 @@
 
     <div class="container">
         <h2 class="mt-4">Obserwuj zawodnika</h2>
-        <h6 style="color: darkred">Wszystkie pola są wymagane!</h6>
+        <h6 style="color: darkred"><small>Wszystkie pola są wymagane!</small></h6>
 
         <form action="#" method="POST" class="mt-4">
             {% csrf_token %}
-
+<hr>
+            <div class="row">
+                <div class="col">
             {{ form.player.label_tag }}
             {{ form.player }}
+                </div>
+                <div class="col">
             {{ form.observation.label_tag }}
             {{ form.observation }}
-
+                </div>
+            </div>
+            <hr>
 {#Pytania#}
-        <h5 class="mt-3">Pytania opisowe</h5>
-        <hr>
+            <div class="mt-5">
+            <hr>
+        <h5 class="mt-3 mb-3">Pytania opisowe</h5>
 
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="first_desc">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{ form.first_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="first_desc" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.first_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            {{ form.second_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.second_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            {{ form.third_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.third_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingFour">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            {{ form.fourth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.fourth_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingFive">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            {{ form.fifth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.fifth_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingSix">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            {{ form.sixth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.sixth_desc }}
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            {{ form.first_desc.label_tag }}
+            {{ form.first_desc }}
         </div>
+        <div class="col">
+            {{ form.second_desc.label_tag }}
+            {{ form.second_desc }}
+        </div>
+    </div>
 
-{#        <h5 class="mt-3">Oceny</h5>#}
-{#        <hr>#}
-{##}
-{#        {{ form.one.label_tag }}#}
-{#        {{ form.one }}#}
-{##}
-{#        {{ form.two.label_tag }}#}
-{#        {{ form.two }}#}
-{##}
-{#        {{ form.three.label_tag }}#}
-{#        {{ form.three }}#}
-{##}
-{#        {{ form.four.label_tag }}#}
-{#        {{ form.four }}#}
-{##}
-{#        {{ form.five.label_tag }}#}
-{#        {{ form.five }}#}
-{##}
-{#        {{ form.six.label_tag }}#}
-{#        {{ form.six }}#}
-{##}
-{#        {{ form.seven.label_tag }}#}
-{#        {{ form.seven }}#}
-{##}
-{#        {{ form.eight.label_tag }}#}
-{#        {{ form.eight }}#}
-{##}
-{#        {{ form.nine.label_tag }}#}
-{#        {{ form.nine }}#}
-{##}
-{#        {{ form.ten.label_tag }}#}
-{#        {{ form.ten }}#}
-{##}
-{#        {{ form.eleven.label_tag }}#}
-{#        {{ form.eleven }}#}
+    <div class="row">
+        <div class="col">
+            {{ form.third_desc.label_tag }}
+            {{ form.third_desc }}
+        </div>
+        <div class="col">
+            {{ form.fourth_desc.label_tag }}
+            {{ form.fourth_desc }}
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            {{ form.fifth_desc.label_tag }}
+            {{ form.fifth_desc }}
+        </div>
+        <div class="col">
+            {{ form.sixth_desc.label_tag }}
+            {{ form.sixth_desc }}
+        </div>
+    </div>
+
+{#        <div class="accordion" id="accordionExample">#}
+{#            <div class="card">#}
+{#                <div class="card-header" id="first_desc">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">#}
+{#                            {{ form.first_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{##}
+{#                <div id="collapseOne" class="collapse show" aria-labelledby="first_desc" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.first_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#2#}
+{#        <div class="col">#}
+{#            <div class="card">#}
+{#                <div class="card-header" id="headingTwo">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">#}
+{#                            {{ form.second_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{#                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.second_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div></div>#}
+{#    </div>#}
+{#</div>#}
+{#3#}
+{#            <div class="card">#}
+{#                <div class="card-header" id="headingThree">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">#}
+{#                            {{ form.third_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{#                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.third_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <div class="card-header" id="headingFour">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">#}
+{#                            {{ form.fourth_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{#                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.fourth_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <div class="card-header" id="headingFive">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">#}
+{#                            {{ form.fifth_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{#                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.fifth_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <div class="card-header" id="headingSix">#}
+{#                    <h2 class="mb-0">#}
+{#                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">#}
+{#                            {{ form.sixth_desc.label_tag }}#}
+{#                        </button>#}
+{#                    </h2>#}
+{#                </div>#}
+{#                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        {{ form.sixth_desc }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
 
         <h5 class="mt-3">Oceny</h5>

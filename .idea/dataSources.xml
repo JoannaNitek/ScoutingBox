@@ -9,5 +9,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/scouting-box</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="scouting-box" uuid="e888b2f9-57ae-4885-801e-0ba15543ac5c">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/ScoutingBox/scouting-box</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
     PlayerView, ObservationFormView, PlayerEditView, ObservationFormPlayerView, AddCommentFormView, \
-    CommentDeleteView, PlayerDeleteView, CalendarList, CalendarAdd, CalendarDeleteView
+    CommentDeleteView, PlayerDeleteView, CalendarList, CalendarAdd, CalendarDeleteView, ComparisonView
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -42,5 +42,6 @@ urlpatterns = [
     re_path(r'^add_comment/(?P<player_id>(\d)+)', AddCommentFormView.as_view()),
     re_path(r'^delete_comment/(?P<player_id>(\d)+)/(?P<com_id>(\d)+)', CommentDeleteView.as_view()),
     re_path(r'^delete_player/(?P<player_id>(\d)+)', PlayerDeleteView.as_view()),
+    re_path(r'^(?P<play_1>(\d)+)/comparison/(?P<play_2>(\d)+)', ComparisonView.as_view()),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block container %}
+
+    <div class="container mx-auto px-auto mt-5">
+        <div class="row">
+            <div class="col col-md-3 d-flex align-items-stretch w-100">
+                <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">{{ p_1.first_name }}</h6>
+                    <h5 class="card-title mb-4"><a href="/player/{{ p_1.id }}" style="color: #f0ad4e">{{ p_1.last_name }}</a></h5>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="text-align: left"><small class="text-muted">klub</small></td>
+                            <td style="text-align: center"><small><b>{{ p_1.club }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><small class="text-muted">pozycja</small></td>
+                            <td style="text-align: center"><small><b>{{ p_1.get_position_display }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><small class="text-muted">status</small></td>
+                            <td style="text-align: center"><small><b>{{ p_1.get_status_display  }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><small class="text-muted">rocznik</small></td>
+                            <td style="text-align: center"><small><b>{{ p_1.year_of_birth }}</b></small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left"><small class="text-muted">ilość obserwacji</small></td>
+                            <td style="text-align: center"><small><b>{{ count1 }}</b></small></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-12 col-md-6 w-100 d-flex align-items-stretch">
+                <div class="card w-100 shadow-sm p-3 mb-3 bg-white rounded border border-light">
+                    <div class="card-body">
+                        <h5 class="card-title mb-5" style="text-align: center"><b>{{ p_1 }}</b> <small>vs.</small> <b>{{ p_2 }}</b></h5>
+                    <canvas id="myChart" width=auto></canvas>
+                </div>
+            </div>
+            </div>
+
+            <div class="col col-md-3 d-flex align-items-stretch w-100">
+                <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted" style="text-align: right">{{ p_2.first_name }}</h6>
+                    <h5 class="card-title mb-4"style="text-align: right"><a href="/player/{{ p_2.id }}" style="color: #5bc0de">{{ p_2.last_name }}</a></h5>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center"><small><b>{{ p_2.club }}</b></small></td>
+                            <td style="text-align: right"><small class="text-muted">klub</small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><small><b>{{ p_2.get_position_display }}</b></small></td>
+                            <td style="text-align: right"><small class="text-muted">pozycja</small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><small><b>{{ p_2.get_status_display  }}</b></small></td>
+                            <td style="text-align: right"><small class="text-muted">status</small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><small><b>{{ p_2.year_of_birth }}</b></small></td>
+                            <td style="text-align: right"><small class="text-muted">rocznik</small></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><small><b>{{ count2 }}</b></small></td>
+                            <td style="text-align: right"><small class="text-muted">ilość obserwacji</small></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+{#                <ul class="list-group-flush" style="background: transparent">#}
+{#                    <li class="list-group-item list-group-item-info" style="font-weight: bold"><a href="/player/{{ p_2.id }}" style="color: #292b2c">{{ p_2 }}</a></li>#}
+{#                    <li class="list-group-item" style="background: transparent">{{ p_2.club }}</li>#}
+{#                    <li class="list-group-item" style="background: transparent">{{ p_2.get_position_display }}</li>#}
+{#                    <li class="list-group-item" style="background: transparent">{{ p_2.get_status_display }}</li>#}
+{#                    <li class="list-group-item" style="background: transparent">{{ p_2.year_of_birth }}</li>#}
+{#                    <li class="list-group-item" style="background: transparent"><span class="badge badge-info badge-pill">{{ count2 }}</span> Ilość obserwacji</li>#}
+{#                </ul>#}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block chart %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ["{{ q.1a }}", "{{ q.2a }}", "{{ q.3a }}", "{{ q.4a }}", "{{ q.5a }}",
+                    "{{ q.6a }}", "{{ q.7a }}", "Skłonność do przecinania linii przeciwnika", "{{ q.9a }}", "{{ q.10a }}", "{{ q.11a }}"],
+                datasets: [{
+                    label: '{{ p_1 }}',
+                    data: [{{ context1.s1 }}, {{ context1.s2 }}, {{ context1.s3 }}, {{ context1.s4 }}, {{ context1.s5 }},
+                        {{ context1.s6 }}, {{ context1.s7 }}, {{ context1.s8 }}, {{ context1.s9 }}, {{ context1.s10 }}, {{ context1.s11 }}],
+                    backgroundColor: [
+                        'rgba(240, 173, 78, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(240, 173, 78, 1)'
+                    ],
+                    borderWidth: 1
+                }, {
+                    label: '{{ p_2 }}',
+                    data: [{{ context2.s1 }}, {{ context2.s2 }}, {{ context2.s3 }}, {{ context2.s4 }}, {{ context2.s5 }},
+                        {{ context2.s6 }}, {{ context2.s7 }}, {{ context2.s8 }}, {{ context2.s9 }}, {{ context2.s10 }}, {{ context2.s11 }}],
+                    backgroundColor: [
+                        'rgba(91, 192, 222, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(91, 192, 222, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                        legend: {
+                            display: false
+                        }
+            }
+        });
+</script>
+{% endblock %}
