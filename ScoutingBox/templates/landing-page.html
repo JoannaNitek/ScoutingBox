@@ -2,37 +2,178 @@
 {% block container %}
     {% load static %}
 
-    <div class="container my-5">
-        <div class="jumbotron" style="background-color: whitesmoke">
-            <h1 class="display-3 mb-5">Witaj, <b>{{ user }}</b>!</h1>
-            <h6>Co chcesz zrobić? Poniżej masz możliwość dodania nowego piłkarza do bazy danych lub oberwacji jednego z wcześniej dodanych zawodników.</h6>
-            <a class="btn btn-dark" href="add_player/" role="button">Nowy zawodnik</a>
-            <a class="btn btn-dark" href="/form/" role="button">Nowa obserwacja zawodnika</a>
-            <a class="btn btn-dark" href="/calendar_add/" role="button">Dodaj obserwację do terminarza</a>
-            <hr class="my-4">
-            <p>Jeśli nie jesteś pewien czy dany zawodnik już figuruje w bazie, przejdź do sekcji <a href="/players/">PIŁKARZE</a></p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="color: whitesmoke">  </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="add_player/">Dodaj zawodnika</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/form/">Nowa obserwacja zawodnika</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/calendar_add/">Dodaj mecz do terminarza</a>
+                </li>
+            </ul>
         </div>
-    </div>
-
-
+            <h5 class="nav justify-content-end">Witaj, {{ user }}!</h5>
+    </nav>
 
     <div class="container">
-        <div class="my-5">
-            <div class="card text-center card border-dark mb-3">
-                <div class="card-header">
-                    Najnowszy komentarz
-                </div>
+
+    <div class="row">
+        <div class="col mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
                 <div class="card-body">
-                    <h5 class="card-title">{{ comm.player}}</h5>
-                    <p class="card-text">"{{ comm }}"</p>
+                    <h6 class="card-title">Zawodnicy TOP</h6>
+                    <table class="table mt-5">
+                        <tbody>
+                        {% for p in players %}
+                            <tr>
+                                <th><small>{{ forloop.counter }}</small></th>
+                                <td>{{ p }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-footer text-muted">
-                    {{ comm.date }}
+            </div>
+        </div>
+
+        <div class="col mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Ostatnio dodany zawodnik</h6>
+{#                    <div class="row">#}
+{#                        <div class="col-4">#}
+{#                            <figure class="figure rounded-circle p-4" style="background-color: #5cb85c;">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>#}
+{#                        </div>#}
+{#                        <div class="col-8">#}
+{#                            <p>{{ jarek }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <table class="mt-5 mx-auto align-middle table-bordered">
+                        <tbody>
+                        <tr>
+                            <td class="align-middle">
+                                <p></p><figure class="figure rounded-circle p-3" style="background-color: #5cb85c;">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>
+                            </td>
+                            <td>{{ jarek }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Najnowsze komentarze</h6>
                 </div>
             </div>
         </div>
     </div>
 
+        <div class="row">
+        <div class="col-md-4 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Zawodnik z największą oceną</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Nadchodzące mecze</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div class="row">
+        <div class="col-md-4 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Ilość obserwacji dla scouta</h6>
+                    <h4 class="mt-5">{{ observ }}<small class="text-muted"> total</small></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+                <div class="card-body">
+                    <h6 class="card-title">Ilość obserwacji dla zawodnika</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+{#    <div class="container my-5">#}
+{#        <div class="jumbotron" style="background-color: whitesmoke">#}
+{#            <h1 class="display-3 mb-5">Witaj, <b>{{ user }}</b>!</h1>#}
+{#            <h6>Co chcesz zrobić? Poniżej masz możliwość dodania nowego piłkarza do bazy danych lub oberwacji jednego z wcześniej dodanych zawodników.</h6>#}
+{#            <a class="btn btn-dark" href="add_player/" role="button">Nowy zawodnik</a>#}
+{#            <a class="btn btn-dark" href="/form/" role="button">Nowa obserwacja zawodnika</a>#}
+{#            <a class="btn btn-dark" href="/calendar_add/" role="button">Dodaj obserwację do terminarza</a>#}
+{#            <hr class="my-4">#}
+{#            <p>Jeśli nie jesteś pewien czy dany zawodnik już figuruje w bazie, przejdź do sekcji <a href="/players/">PIŁKARZE</a></p>#}
+{#            <h4>{{ observ }}</h4>#}
+{#        </div>#}
+{#    </div>#}
+{#<div class="container">#}
+{#<div class="card w-100 shadow-sm p-3 mb-3 border-light">#}
+{#<div class="card-body">#}
+{#    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">#}
+{#  <div class="carousel-inner">#}
+{#    <div class="carousel-item active">#}
+{#<h1>1</h1>#}
+{#    </div>#}
+{#    <div class="carousel-item">#}
+{#<h1>2</h1>#}
+{#    </div>#}
+{#    <div class="carousel-item">#}
+{#<h1>3</h1>#}
+{#    </div>#}
+{#  </div>#}
+{#  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">#}
+{#    <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+{#    <span class="sr-only">Previous</span>#}
+{#  </a>#}
+{#  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">#}
+{#    <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+{#    <span class="sr-only">Next</span>#}
+{#  </a>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+{#</div>#}
+{##}
+{#    <div class="container">#}
+{#        <div class="my-5">#}
+{#            <div class="card text-center card border-dark mb-3">#}
+{#                <div class="card-header">#}
+{#                    Najnowszy komentarz#}
+{#                </div>#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ comm.player}}</h5>#}
+{#                    <p class="card-text">"{{ comm }}"</p>#}
+{#                </div>#}
+{#                <div class="card-footer text-muted">#}
+{#                    {{ comm.date }}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
 {#    <div class="container mt-5">#}
 {#        <div class="card text-center card border-dark mb-3">#}
 {#            <div class="card-header">#}
@@ -60,27 +201,53 @@
 {#                </table>#}
 {#            </div>#}
 {#        </div>#}
+{##}
+{#        <div class="container">#}
+{#        <div class="my-5">#}
+{#            <div class="card text-center card border-dark mb-3">#}
+{#                <div class="card-header">#}
+{#                    Zawodnicy TOP#}
+{#                </div>#}
+{#                <div class="card-body">#}
+{#                    {% for p in players %}#}
+{#                    <h5 class="card-title"><a href='/player/{{ p.id }}'>{{ p }}</a></h5>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
-        <div class="container">
-        <div class="my-5">
-            <div class="card text-center card border-dark mb-3">
-                <div class="card-header">
-                    Zawodnicy TOP
-                </div>
-                <div class="card-body">
-                    {% for p in players %}
-                    <h5 class="card-title"><a href='/player/{{ p.id }}'>{{ p }}</a></h5>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <canvas id="myChart" width="400" height="400"></canvas>#}
 
-
-
-
-
-
-
+{#{% block chart %}#}
+{#    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>#}
+{#<script>#}
+{#var ctx = document.getElementById('myChart');#}
+{#var myChart = new Chart(ctx, {#}
+{#    type: 'bar',#}
+{#    data: {#}
+{#        labels: [{{ all }}],#}
+{#        datasets: [{#}
+{#            label: '# of Votes',#}
+{#            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],#}
+{#            backgroundColor: [#}
+{#            ],#}
+{#            borderColor: [#}
+{#            ],#}
+{#            borderWidth: 1#}
+{#        }]#}
+{#    },#}
+{#    options: {#}
+{#        scales: {#}
+{#            yAxes: [{#}
+{#                ticks: {#}
+{#                    beginAtZero: true#}
+{#                }#}
+{#            }]#}
+{#        }#}
+{#    }#}
+{#});#}
+{#</script>#}
+{#    {% endblock %}#}
 
 {% endblock %}

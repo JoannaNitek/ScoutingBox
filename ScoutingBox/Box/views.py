@@ -14,10 +14,13 @@ class LandingPageView(LoginRequiredMixin, View):
 
     def get(self, request):
         players = Player.objects.filter(status=4)
+        observ = ObservationForm.objects.count()
         # forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
-        # comm = Comments.objects.latest('date')
+        comm = Comments.objects.all
+        all = Player.objects.all()
+        jarek = Player.objects.get(pk=1)
 
-        return render(request, 'landing-page.html', {'players': players})
+        return render(request, 'landing-page.html', {'players': players, 'observ': observ, 'all': all, 'jarek': jarek})
 
 
 class PlayerListView(LoginRequiredMixin, View):

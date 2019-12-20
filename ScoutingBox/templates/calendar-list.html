@@ -3,14 +3,16 @@
 
     <div class="col-2"></div>
     <div class="container mx-auto mb-5 mt-5">
-        <h4>Nadchodzące obserwacje: </h4>
+        <h4 class="mb-4">Nadchodzące obserwacje </h4>
+
+
         <table class="table table-hover table-bordered"  id="myTable1" data-toggle="table">
             <thead class="thead-dark">
             <tr>
                 <th data-field="date" data-sortable="true" scope="col">Data i godzina</th>
                 <th data-field="match" data-sortable="true" scope="col">Mecz</th>
                 <th data-field="city" data-sortable="true" scope="col">Lokalizacja</th>
-                <th data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
+                <th colspan="2" data-field="scout" data-sortable="true" scope="col">Obserwujący</th>
             </tr>
             </thead>
             <tbody>
@@ -20,17 +22,19 @@
                     <td>{{ item.match }}</td>
                     <td>{{ item.city }}, {{ item.country }}</td>
                     <td>{{ item.scout }}</td>
+                    <td>Usuń obserwację</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <button type="button" class="btn btn-dark"><a href="/calendar_add/" style="color: white; text-decoration: none">Dodaj obserwację</a></button>
     </div>
     <div class="col-2"></div>
 
 
     <div class="col-2"></div>
     <div class="container-fluid mx-auto mb-5 mt-5">
-        <h4>Poprzednie obserwacje: </h4>
+        <h4 class="mb-4">Poprzednie obserwacje: </h4>
         <table class="table table-hover table-bordered"  id="myTable" data-toggle="table">
             <thead style="background-color: whitesmoke; color: gray;">
             <tr>
