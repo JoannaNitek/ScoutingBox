@@ -2,11 +2,11 @@
 {% block container %}
     {% load static %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top shadow-sm p-3 mb-3 border-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="color: whitesmoke">  </span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="add_player/">Dodaj zawodnika</a>
@@ -29,11 +29,11 @@
             <div class="card w-100 shadow-sm p-3 mb-3 border-light">
                 <div class="card-body">
                     <h6 class="card-title">Zawodnicy TOP</h6>
-                    <table class="table mt-5">
+                    <table class="table mt-5 table-borderless">
                         <tbody>
                         {% for p in players %}
                             <tr>
-                                <th><small>{{ forloop.counter }}</small></th>
+                                <th><small class="text-muted">{{ forloop.counter }}</small></th>
                                 <td>{{ p }}</td>
                             </tr>
                         {% endfor %}
@@ -55,13 +55,13 @@
 {#                            <p>{{ jarek }}</p>#}
 {#                        </div>#}
 {#                    </div>#}
-                    <table class="mt-5 mx-auto align-middle table-bordered">
+                    <table class="mt-5 mx-auto align-middle table-borderless">
                         <tbody>
                         <tr>
                             <td class="align-middle">
-                                <p></p><figure class="figure rounded-circle p-3" style="background-color: #5cb85c;">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>
+                                <p></p><figure class="figure rounded-circle p-3" style="background-color: #5cb85c; color: white; font-size: x-large">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>
                             </td>
-                            <td>{{ jarek }}</td>
+                            <td class="p-3" style="font-size: larger">{{ jarek }}</td>
                         </tr>
                         </tbody>
                     </table>
