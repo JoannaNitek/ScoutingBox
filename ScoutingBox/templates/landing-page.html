@@ -2,12 +2,12 @@
 {% block container %}
     {% load static %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top shadow-sm p-3 mb-3 border-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm p-3 mb-3 border-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="color: whitesmoke">  </span>
         </button>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" style="font-size: small">
                 <li class="nav-item">
                     <a class="nav-link" href="add_player/">Dodaj zawodnika</a>
                 </li>
@@ -19,78 +19,97 @@
                 </li>
             </ul>
         </div>
-            <h5 class="nav justify-content-end">Witaj, {{ user }}!</h5>
+            <h6 class="nav justify-content-end">Witaj, {{ user }}!</h6>
     </nav>
 
     <div class="container">
 
-    <div class="row">
-        <div class="col mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title">Zawodnicy TOP</h6>
-                    <table class="table mt-5 table-borderless">
-                        <tbody>
-                        {% for p in players %}
-                            <tr>
-                                <th><small class="text-muted">{{ forloop.counter }}</small></th>
-                                <td>{{ p }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+        <div class="row">
+            <div class="col-md-4 col-6">
+                <div class="card shadow-sm mb-1 border-light" style="overflow: auto; height: 250px">
+                    <div class="card-body mb-1">
+                        <h6 class="card-title" style="color: #4f4f4f">Zawodnicy TOP</h6>
+                            <table class="table table text-center">
+                                <tbody>
+                                {% for p in players %}
+                                    <tr>
+                                        <th style="color: #00468B">{{ forloop.counter }}</th>
+                                        <td style="font-size: small"><a class="text-decoration-none" href="/player/{{ p.id }}" style="color: #4f4f4f">{{ p }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title">Ostatnio dodany zawodnik</h6>
-{#                    <div class="row">#}
-{#                        <div class="col-4">#}
-{#                            <figure class="figure rounded-circle p-4" style="background-color: #5cb85c;">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>#}
-{#                        </div>#}
-{#                        <div class="col-8">#}
-{#                            <p>{{ jarek }}</p>#}
-{#                        </div>#}
-{#                    </div>#}
-                    <table class="mt-5 mx-auto align-middle table-borderless">
-                        <tbody>
-                        <tr>
-                            <td class="align-middle">
-                                <p></p><figure class="figure rounded-circle p-3" style="background-color: #5cb85c; color: white; font-size: x-large">{{ jarek.first_name|first }}{{ jarek.last_name|first }}</figure>
-                            </td>
-                            <td class="p-3" style="font-size: larger">{{ jarek }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+            <div class="col-md-4 col-6">
+                <div class="card shadow-sm mb-1 border-light" style="overflow: auto; height: 250px">
+                    <div class="card-body">
+                        <h6 class="card-title" style="color: #4f4f4f">Ostatnio dodany zawodnik</h6>
 
-        <div class="col mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title">Najnowsze komentarze</h6>
+                        <div class="row align-middle">
+                            <table class="mt-3 mx-auto table-borderless text-center">
+                                <tbody>
+                                <tr>
+                                    <td class="p-3" style="font-size: 70px"><a href="/player/{{ last.id }}" class="text-decoration-none" style="color: #5b80b2">{{ last.first_name|first }}{{ last.last_name|first }}</a></td>
+                                    <td class="p-3"><a href="/player/{{ last.id }}" class="text-decoration-none" style="color: #00468B">{{ last }}</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="col-md-4 col-6">
+                <div class="card shadow-sm mb-1 border-light" style="height: 250px; overflow: auto">
+                    <div class="card-body">
+                        <h6 class="card-title" style="color: #4f4f4f">Najnowsze komentarze</h6>
+
+                        <div class="align-middle">
+                            <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for c in comm %}
+                                        {% if forloop.first %}
+                                            <div class="carousel-item active">
+                                        {% else %}
+                                            <div class="carousel-item">
+                                        {% endif %}
+                                    <h7 class="d-block w-100 mb-3 mt-3" style="color: #00468B">{{ c.player }}</h7>
+                                    <small class="d-block w-100 mb-3">{{ c.comment|slice:"100" }}</small>
+                                    <small class="text-muted">{{ c.date|timesince }}</small>
+                                    </div>
+                                    {% endfor %}
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <div class="row">
-        <div class="col-md-4 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+        <div class="col-md-4 col-6 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm mb-3 border-light">
                 <div class="card-body">
-                    <h6 class="card-title">Zawodnik z największą oceną</h6>
+                    <h6 class="card-title" style="color: #4f4f4f">Zawodnik z największą oceną</h6>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-8 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+        <div class="col-md-8 col-12 mt-4 d-flex align-items-stretch">
+            <div class="card w-100 shadow-sm mb-3 border-light">
                 <div class="card-body">
-                    <h6 class="card-title">Nadchodzące mecze</h6>
+                    <h6 class="card-title" style="color: #4f4f4f">Nadchodzące mecze</h6>
                 </div>
             </div>
         </div>
@@ -98,156 +117,75 @@
 
             <div class="row">
         <div class="col-md-4 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+            <div class="card w-100 shadow-sm   mb-3 border-light">
                 <div class="card-body">
-                    <h6 class="card-title">Ilość obserwacji dla scouta</h6>
+                    <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla scouta</h6>
                     <h4 class="mt-5">{{ observ }}<small class="text-muted"> total</small></h4>
+                    {% for s in scout %}
+                    {{ s.email|cut:"\@.*" }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
 
         <div class="col-md-8 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm p-3 mb-3 border-light">
+            <div class="card w-100 shadow-sm   mb-3 border-light">
                 <div class="card-body">
-                    <h6 class="card-title">Ilość obserwacji dla zawodnika</h6>
+                    <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla zawodnika</h6>
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
+    {% for p in all %}
+    <p>{{ p }}</p>
+    {% endfor %}
 
     </div>
 
-{#    <div class="container my-5">#}
-{#        <div class="jumbotron" style="background-color: whitesmoke">#}
-{#            <h1 class="display-3 mb-5">Witaj, <b>{{ user }}</b>!</h1>#}
-{#            <h6>Co chcesz zrobić? Poniżej masz możliwość dodania nowego piłkarza do bazy danych lub oberwacji jednego z wcześniej dodanych zawodników.</h6>#}
-{#            <a class="btn btn-dark" href="add_player/" role="button">Nowy zawodnik</a>#}
-{#            <a class="btn btn-dark" href="/form/" role="button">Nowa obserwacja zawodnika</a>#}
-{#            <a class="btn btn-dark" href="/calendar_add/" role="button">Dodaj obserwację do terminarza</a>#}
-{#            <hr class="my-4">#}
-{#            <p>Jeśli nie jesteś pewien czy dany zawodnik już figuruje w bazie, przejdź do sekcji <a href="/players/">PIŁKARZE</a></p>#}
-{#            <h4>{{ observ }}</h4>#}
-{#        </div>#}
-{#    </div>#}
-{#<div class="container">#}
-{#<div class="card w-100 shadow-sm p-3 mb-3 border-light">#}
-{#<div class="card-body">#}
-{#    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">#}
-{#  <div class="carousel-inner">#}
-{#    <div class="carousel-item active">#}
-{#<h1>1</h1>#}
-{#    </div>#}
-{#    <div class="carousel-item">#}
-{#<h1>2</h1>#}
-{#    </div>#}
-{#    <div class="carousel-item">#}
-{#<h1>3</h1>#}
-{#    </div>#}
-{#  </div>#}
-{#  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">#}
-{#    <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
-{#    <span class="sr-only">Previous</span>#}
-{#  </a>#}
-{#  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">#}
-{#    <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
-{#    <span class="sr-only">Next</span>#}
-{#  </a>#}
-{#</div>#}
-{#</div>#}
-{#</div>#}
-{#</div>#}
-{##}
-{#    <div class="container">#}
-{#        <div class="my-5">#}
-{#            <div class="card text-center card border-dark mb-3">#}
-{#                <div class="card-header">#}
-{#                    Najnowszy komentarz#}
-{#                </div>#}
-{#                <div class="card-body">#}
-{#                    <h5 class="card-title">{{ comm.player}}</h5>#}
-{#                    <p class="card-text">"{{ comm }}"</p>#}
-{#                </div>#}
-{#                <div class="card-footer text-muted">#}
-{#                    {{ comm.date }}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <div class="container mt-5">#}
-{#        <div class="card text-center card border-dark mb-3">#}
-{#            <div class="card-header">#}
-{#                Terminarz - nadchodzące obserwacje#}
-{#            </div>#}
-{#            <div class="card-body">#}
-{#                <table class="table table-hover table-bordered table-dark">#}
-{##}
-{#                    <thead>#}
-{#                    <th>Data</th>#}
-{#                    <th>Mecz</th>#}
-{#                    <th>Miejsce</th>#}
-{#                    <th>Obserwujący</th>#}
-{#                    </thead>#}
-{#                    <tbody>#}
-{#                    {% for item in forward %}#}
-{#                        <tr>#}
-{#                            <td>{{ item.date|date:'Y m d D H:i' }}</td>#}
-{#                            <td>{{ item.match }}</td>#}
-{#                            <td>{{ item.city }}, {{ item.country }}</td>#}
-{#                            <td>{{ item.scout }}</td>#}
-{#                        </tr>#}
-{#                    {% endfor %}#}
-{#                    </tbody>#}
-{#                </table>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#        <div class="container">#}
-{#        <div class="my-5">#}
-{#            <div class="card text-center card border-dark mb-3">#}
-{#                <div class="card-header">#}
-{#                    Zawodnicy TOP#}
-{#                </div>#}
-{#                <div class="card-body">#}
-{#                    {% for p in players %}#}
-{#                    <h5 class="card-title"><a href='/player/{{ p.id }}'>{{ p }}</a></h5>#}
-{#                    {% endfor %}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-{#    <canvas id="myChart" width="400" height="400"></canvas>#}
-
-{#{% block chart %}#}
-{#    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>#}
-{#<script>#}
-{#var ctx = document.getElementById('myChart');#}
-{#var myChart = new Chart(ctx, {#}
-{#    type: 'bar',#}
-{#    data: {#}
-{#        labels: [{{ all }}],#}
-{#        datasets: [{#}
-{#            label: '# of Votes',#}
-{#            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],#}
-{#            backgroundColor: [#}
-{#            ],#}
-{#            borderColor: [#}
-{#            ],#}
-{#            borderWidth: 1#}
-{#        }]#}
-{#    },#}
-{#    options: {#}
-{#        scales: {#}
-{#            yAxes: [{#}
-{#                ticks: {#}
-{#                    beginAtZero: true#}
-{#                }#}
-{#            }]#}
-{#        }#}
-{#    }#}
-{#});#}
-{#</script>#}
-{#    {% endblock %}#}
+{% block chart %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+<script>
+var ctx = document.getElementById('myChart');
+var p = {{ i }}
+for (x in p) { x }
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [x],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    },
+});
+</script>
+    {% endblock %}
 
 {% endblock %}

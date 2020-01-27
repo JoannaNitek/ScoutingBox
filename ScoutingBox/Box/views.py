@@ -5,22 +5,29 @@ from django.views import View
 from datetime import datetime
 from .forms import PlayerForm, ObservationFormForm, CommentsForm, Calendar
 from .models import Player, Comments, POINTS, ObservationForm, ObservationList
+import users.models
 
 # Create your views here.
-
 
 class LandingPageView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request):
         players = Player.objects.filter(status=4)
+        scout = users.models.CustomUser.objects.all()
         observ = ObservationForm.objects.count()
         # forward = ObservationList.objects.filter(date__gte=datetime.today()).order_by('date')
-        comm = Comments.objects.all
+        comm = Comments.objects.all().order_by('date')[2:]
+        last = Player.objects.last()
         all = Player.objects.all()
-        jarek = Player.objects.get(pk=1)
+        context = {'players': players,
+                   'observ': observ,
+                   'all': all,
+                   'last': last,
+                   'comm': comm,
+                   'scout': scout}
 
-        return render(request, 'landing-page.html', {'players': players, 'observ': observ, 'all': all, 'jarek': jarek})
+        return render(request, 'landing-page.html', context)
 
 
 class PlayerListView(LoginRequiredMixin, View):

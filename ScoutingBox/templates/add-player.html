@@ -1,65 +1,119 @@
 {% extends 'base.html' %}
 {% block container %}
-    <div class="container">
-        <h3 class="mt-4">Dodaj zawodnika</h3>
-        <form action="#" method="POST" class="mt-4">
-            <div class="form-group">
-                <div class="card shadow-sm p-3 mb-3 bg-white rounded border border-light">
-                    <div class="card-body">
-                        {% csrf_token %}
+    <style type="text/css">
+    body {
+        font-family: Ubuntu;
+        background-color: whitesmoke;
+    }
+    .form {
+        border-width: 0 0 1px 0;
+        border-color: lightgray;
+        color: gray;
+        margin-top: 60px;
+        margin-bottom: 3%;
+        width: 90%;
+        outline: 0;
+        background-color: white;
+        font-size: large;
+        font-weight: lighter;
+    }
+    .label {
+        color: #292b2c;
+        font-size: small;
+        text-transform: uppercase;
+    }
+    textarea.form {
+        border-width: 1px;
+        height: 100px;
+    }
+    .card-body {
+        margin-bottom: 2%;
+        margin-top: 2%;
+    }
+    #header {
+        margin-bottom: 4%;
+    }
+    #card {
+        width: 100%;
+        margin-bottom: 2%;
+        margin-top: 10%;
+    }
+    img {
+        margin-bottom: 20%;
+    }
+    #container {
+        display: flex;
+        height: 100%;
+    }
+    @media (max-device-width: 575.98px) {
+        #card {
+            width: 150%;
+        }
+    }
+    hr {
+        background-color: #3f51b5;
+        border-width: 2px;
+        margin-bottom: 5%;
+    }
+</style>
 
-                        <div class="row mb-4">
-                            <div class="col">
-                                {{ form.first_name.label_tag }}
-                                {{ form.first_name }}
+    <div class="container" id="container">
+        <div class="row align-self-center w-100">
+            <div class="mx-auto">
+                <div class="card col-12 h-100 justify-content-center shadow border border-white" id="card">
+                    <div class="card-body text-center">
+                        <h2 id="header">Dodaj zawodnika</h2>
+                        <hr>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="col">
+                                    {{ form.last_name }}
+                                </div>
+                                <div class="col">
+                                    {{ form.year_of_birth }}
+                                </div>
                             </div>
-                            <div class="col">
-                                {{ form.last_name.label_tag }}
-                                {{ form.last_name }}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.club }}
+                                </div>
+                                <div class="col">
+                                        {{ form.position }}
+                                    <div class="label">
+                                        {{ form.position.label }}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    {{ form.status }}
+                                    <div class="label">
+                                    {{ form.status.label }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col">
-                                {{ form.year_of_birth.label_tag }}
-                                {{ form.year_of_birth }}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.mail }}
+                                </div>
+                                <div class="col">
+                                    {{ form.phone }}
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col">
-                                {{ form.club.label_tag }}
-                                {{ form.club }}
+                            <div class="row">
+                                <div class="col">
+                                    {{ form.agent }}
+                                </div>
                             </div>
-                            <div class="col">
-                                {{ form.position.label_tag }}
-                                {{ form.position }}
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-dark mt-3" role="button" aria-pressed="true">Dodaj</button>
                             </div>
-                            <div class="col">
-                                {{ form.status.label_tag }}
-                                {{ form.status }}
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col">
-                                {{ form.mail.label_tag }}
-                                {{ form.mail }}
-                            </div>
-                            <div class="col">
-                                {{ form.phone.label_tag }}
-                                {{ form.phone }}
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col">
-                                {{ form.agent.label_tag }}
-                                {{ form.agent }}
-                            </div>
-                        </div>
-
-                        <input type="submit" class="btn btn btn-dark mb-5 my-3" value="Dodaj zawodnika">
+                        </form>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}

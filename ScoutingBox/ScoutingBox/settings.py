@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'ScoutingBox.wsgi.application'
 #         'NAME': 'scouting-box',
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'USER': 'postgres',
-#         'PASSWORD': 'coderslab',
+#         'PASSWORD': 'coderslab'
 #     }
 # }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'scouting-box',
+        'NAME': '/home/joanna/ScoutingBox/ScoutingBox/scouting-box',
     }
 }
 
