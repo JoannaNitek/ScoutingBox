@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,12 +21,16 @@ class LandingPageView(LoginRequiredMixin, View):
         comm = Comments.objects.all().order_by('date')[2:]
         last = Player.objects.last()
         all = Player.objects.all()
+        p = ObservationForm.objects.all()
+        for i in p:
+            print(i.)
         context = {'players': players,
                    'observ': observ,
                    'all': all,
                    'last': last,
                    'comm': comm,
-                   'scout': scout}
+                   'scout': scout,
+                   'p': p}
 
         return render(request, 'landing-page.html', context)
 

@@ -1,6 +1,7 @@
 
 
 from django.db import models
+from django.db.models import Aggregate, F
 
 from users.models import CustomUser
 
@@ -93,6 +94,16 @@ class Comments(models.Model):
         return self.comment
 
 
+class AnnotationManager(models.Manager):
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.annotate = kwargs
+
+    def get_queryset(self):
+        return super().get_queryset().annotate(**self.annotate)
+
+
 class ObservationForm(models.Model):
     scout = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
 # nie chcę usuwać danych stąd kiedy usuniemy scouta
@@ -115,3 +126,12 @@ class ObservationForm(models.Model):
     nine = models.FloatField(choices=POINTS, verbose_name='Pracowitość')
     ten = models.FloatField(choices=POINTS, verbose_name='Odbiór piłki')
     eleven = models.FloatField(choices=POINTS, verbose_name='Gra w powietrzu')
+    _total = None
+
+    objects = AnnotationManager(
+        total=F('one')+F('two')+F('three')+F('four')+F('five')+F('six')+F('seven')+F('eight')+F('nine')+F('ten')+F('eleven')
+    )
+
+
+
+
