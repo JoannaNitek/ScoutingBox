@@ -77,12 +77,12 @@ class ObservationFormForm(forms.ModelForm):
 
 class Calendar(forms.ModelForm):
     date = forms.DateTimeField(input_formats=['%Y/%m/%d %H:%M'],
-                               widget=forms.widgets.DateTimeInput(attrs={'id': 'datetimepicker', 'type': 'datetime'}))
-    match = forms.CharField(label='Mecz', widget=forms.TextInput(attrs={'class': 'form', 'placeholder': ''}))
+                               widget=forms.widgets.DateTimeInput(attrs={'id': 'datetimepicker', 'type': 'datetime', 'class': 'form', 'placeholder': 'Data'}))
+    match = forms.CharField(label='Mecz', widget=forms.TextInput(attrs={'class': 'form', 'placeholder': 'Mecz'}))
     city = forms.CharField(label='Miasto', widget=forms.TextInput
-    (attrs={'class': 'form', 'placeholder': ''}))
+    (attrs={'class': 'form', 'placeholder': 'Miasto'}))
     country = forms.CharField(label='Kraj', initial='Polska', widget=forms.TextInput
-    (attrs={'class': 'form', 'placeholder': ''}))
+    (attrs={'class': 'form'}))
 
     # scout = forms.ModelChoiceField(queryset=get_user_model().objects.all(), label='Scout',
     #      widget=forms.Select(attrs={'class': 'form', 'placeholder': ''}))

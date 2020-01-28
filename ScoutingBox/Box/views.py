@@ -21,9 +21,15 @@ class LandingPageView(LoginRequiredMixin, View):
         comm = Comments.objects.all().order_by('date')[2:]
         last = Player.objects.last()
         all = Player.objects.all()
-        p = ObservationForm.objects.all()
-        for i in p:
-            print(i.)
+        # x = ObservationForm.objects.get(player_id=1)
+        # p = x.total
+        # print(p)
+
+        a = ObservationForm.objects.all()
+        for i in a:
+            p = i.total
+            print(p)
+
         context = {'players': players,
                    'observ': observ,
                    'all': all,

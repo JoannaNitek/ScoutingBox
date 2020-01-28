@@ -128,6 +128,14 @@
             </div>
         </div>
 
+{#                {% for i in p %}#}
+{#                    {{ i }}#}
+{#                {% endfor %}#}
+{% for i in all %}
+{{ i.pr }}
+{% endfor %}
+
+
         <div class="col-md-8 mt-4 d-flex align-items-stretch">
             <div class="card w-100 shadow-sm   mb-3 border-light">
                 <div class="card-body">
@@ -137,12 +145,8 @@
             </div>
         </div>
     </div>
-    {% for p in all %}
-    <p>{{ p }}</p>
-    {% endfor %}
-
-        {{ p }}
     </div>
+
 
 {% block chart %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>

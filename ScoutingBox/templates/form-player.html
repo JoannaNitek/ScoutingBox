@@ -1,330 +1,148 @@
 {% extends 'base.html' %}
 {% block container %}
-{#    <form action="#" method="post">#}
-{#    {% csrf_token %}#}
+<style type="text/css">
+    body {
+        font-family: Ubuntu;
+        background-color: whitesmoke;
+    }
+    .form {
+        border-width: 0 0 1px 0;
+        border-color: lightgray;
+        color: gray;
+        padding: 5px;
+        margin: 20px;
+        width: 90%;
+        outline: 0;
+        background-color: white;
+        font-size: large;
+        font-weight: lighter;
+    }
+    .label {
+        color: #292b2c;
+        font-size: small;
+        text-transform: uppercase;
+    }
+    textarea.form {
+        border-width: 1px;
+        height: 100px;
+    }
+    .card-body {
+        margin-bottom: 2%;
+        margin-top: 2%;
+    }
+    #header {
+        margin-bottom: 4%;
+    }
+    #card {
+        width: 100%;
+        margin-bottom: 2%;
+        margin-top: 5%;
+    }
+    img {
+        margin-bottom: 20%;
+    }
+    #container {
+        display: flex;
+        height: 100%;
+    }
+    @media (max-device-width: 575.98px) {
+        #card {
+            width: 300%;
+        }
+    }
+    .hr1 {
+        background-color: #3f51b5;
+        border-width: 2px;
+        margin-bottom: 5%;
+    }
+    .hr2 {
 
-    <div class="container">
-        <h2 class="mt-4">Obserwuj zawodnika {{ player.first_name }} {{ player.last_name }}</h2>
-        <h6 style="color: darkred">Wszystkie pola są wymagane!</h6>
-
-    <form action="#" method="POST" class="mt-4">
-        {% csrf_token %}
-
-        {{ form.player.label_tag }}
-        {{ form.player }}
-        {{ form.observation.label_tag }}
-        {{ form.observation }}
-
-        {#Pytania#}
-        <h5 class="mt-3">Pytania opisowe</h5>
-        <hr>
-
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="first_desc">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            {{ form.first_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="first_desc" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.first_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            {{ form.second_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.second_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            {{ form.third_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.third_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingFour">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            {{ form.fourth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.fourth_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingFive">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            {{ form.fifth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.fifth_desc }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="headingSix">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            {{ form.sixth_desc.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.sixth_desc }}
+    }
+    .header2 {
+        margin: 5%;
+    }
+</style>
+    <div class="container" id="container">
+        <div class="row align-self-center w-100">
+            <div class="mx-auto">
+                <div class="card col-12 h-100 justify-content-center shadow border border-white" id="card">
+                    <div class="card-body text-center">
+                        <h2 id="header">Formularz obserwacji</h2>
+                        <h6 style="color: #cc3300">Wszystkie pola są wymagane!</h6>
+                        <hr class="hr1">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6 col-12">{{ form.player }}
+                                    <div class="label">
+                                        {{ form.player.label }}
+                                    </div></div>
+                                <div class="col-md-6 col-12">{{ form.observation }}
+                                    <div class="label">
+                                        {{ form.observation.label }}
+                                    </div></div>
+                            </div>
+                            <hr class="hr2">
+                            <h5 class="header2">Pytania opisowe</h5>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.first_desc.label }}
+                                    </div>{{ form.first_desc }}</div>
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.second_desc.label }}
+                                    </div>{{ form.second_desc }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.third_desc.label }}
+                                    </div>{{ form.third_desc }}</div>
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.fourth_desc.label }}
+                                    </div>{{ form.fourth_desc }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.fifth_desc.label }}
+                                    </div>{{ form.fifth_desc }}</div>
+                                <div class="col">
+                                    <div class="label">
+                                        {{ form.sixth_desc.label }}
+                                    </div>{{ form.sixth_desc }}</div>
+                            </div>
+                            <hr class="hr2">
+                            <h5 class="header2">Oceny</h5>
+                            <div class="row">
+                                <div class="col"><div class="label">{{ form.one.label }}</div> {{ form.one }}</div>
+                                <div class="col"><div class="label">{{ form.two.label }}</div> {{ form.two }}</div>
+                                <div class="col"><div class="label">{{ form.three.label }}</div> {{ form.three }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><div class="label">{{ form.four.label }}</div> {{ form.four }}</div>
+                                <div class="col"><div class="label">{{ form.fiveo.label }}</div> {{ form.five }}</div>
+                                <div class="col"><div class="label">{{ form.six.label }}</div> {{ form.six }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><div class="label">{{ form.seven.label }}</div> {{ form.seven }}</div>
+                                <div class="col"><div class="label">{{ form.eightwo.label }}</div> {{ form.eight }}</div>
+                                <div class="col"><div class="label">{{ form.nineee.label }}</div> {{ form.nine }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col"><div class="label">{{ form.ten.label }}</div> {{ form.ten }}</div>
+                                <div class="col"><div class="label">{{ form.eleven.label }}</div> {{ form.eleven }}</div>
+                            </div>
+                            <hr class="hr2">
+                            <div class="row justify-content-center">
+                                <button type="submit" class="btn btn-dark mt-3" role="button" aria-pressed="true">Dodaj</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        {#        <h5 class="mt-3">Oceny</h5>#}
-        {#        <hr>#}
-        {##}
-        {#        {{ form.one.label_tag }}#}
-        {#        {{ form.one }}#}
-        {##}
-        {#        {{ form.two.label_tag }}#}
-        {#        {{ form.two }}#}
-        {##}
-        {#        {{ form.three.label_tag }}#}
-        {#        {{ form.three }}#}
-        {##}
-        {#        {{ form.four.label_tag }}#}
-        {#        {{ form.four }}#}
-        {##}
-        {#        {{ form.five.label_tag }}#}
-        {#        {{ form.five }}#}
-        {##}
-        {#        {{ form.six.label_tag }}#}
-        {#        {{ form.six }}#}
-        {##}
-        {#        {{ form.seven.label_tag }}#}
-        {#        {{ form.seven }}#}
-        {##}
-        {#        {{ form.eight.label_tag }}#}
-        {#        {{ form.eight }}#}
-        {##}
-        {#        {{ form.nine.label_tag }}#}
-        {#        {{ form.nine }}#}
-        {##}
-        {#        {{ form.ten.label_tag }}#}
-        {#        {{ form.ten }}#}
-        {##}
-        {#        {{ form.eleven.label_tag }}#}
-        {#        {{ form.eleven }}#}
-
-
-
-        <h5 class="mt-3">Oceny</h5>
-        <hr>
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="one">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseone" aria-expanded="true" aria-controls="collapseone">
-                            {{ form.one.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapseone" class="collapse show" aria-labelledby="one" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.one }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Two">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsetwo" aria-expanded="false" aria-controls="collapsetwo">
-                            {{ form.two.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapsetwo" class="collapse" aria-labelledby="Two" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.two }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Three">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsethree" aria-expanded="false" aria-controls="collapsethree">
-                            {{ form.three.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapsethree" class="collapse" aria-labelledby="Three" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.three }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Four">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
-                            {{ form.four.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapsefour" class="collapse" aria-labelledby="Four" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.four }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Five">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
-                            {{ form.five.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapsefive" class="collapse" aria-labelledby="Five" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.five }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Six">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
-                            {{ form.six.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapsesix" class="collapse" aria-labelledby="Six" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.six }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Seven">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Seven" aria-expanded="false" aria-controls="Seven">
-                            {{ form.seven.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="Seven" class="collapse" aria-labelledby="Seven" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.seven }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Eight">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Eight" aria-expanded="false" aria-controls="Eight">
-                            {{ form.eight.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="Eight" class="collapse" aria-labelledby="Eight" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.eight }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Nine">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Nine" aria-expanded="false" aria-controls="Nine">
-                            {{ form.nine.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="Nine" class="collapse" aria-labelledby="Nine" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.nine }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Ten">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Ten" aria-expanded="false" aria-controls="Ten">
-                            {{ form.ten.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="Ten" class="collapse" aria-labelledby="Ten" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.ten }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header" id="Eleven">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#Eleven" aria-expanded="false" aria-controls="Eleven">
-                            {{ form.eleven.label_tag }}
-                        </button>
-                    </h2>
-                </div>
-                <div id="Eleven" class="collapse" aria-labelledby="Eleven" data-parent="#accordionExample">
-                    <div class="card-body">
-                        {{ form.eleven }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <input type="submit" class="btn btn-dark mb-5 my-3" value="Dodaj obserwacje">
-    </form>
     </div>
-
-
-
 {% endblock %}
