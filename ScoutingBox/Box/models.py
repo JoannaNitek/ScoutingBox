@@ -1,7 +1,7 @@
 
 
 from django.db import models
-from django.db.models import Aggregate, F, Manager
+from django.db.models import Aggregate, F, Manager, Sum
 
 from users.models import CustomUser
 
@@ -84,6 +84,10 @@ class Player(models.Model):
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
+    # @property
+    # def totals(self):
+    #     return
+
 
 class Comments(models.Model):
     comment = models.TextField(null=True)
@@ -92,11 +96,6 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.comment
-
-
-# class PointsManager(Manager):
-#     def get_queryset(self):
-#         return super().get_queryset().annotate(total=F('one')+F('two')+F('three')+F('four')+F('five')+F('six')+F('seven')+F('eight')+F('nine')+F('ten')+F('eleven'))
 
 
 class ObservationForm(models.Model):
@@ -117,14 +116,21 @@ class ObservationForm(models.Model):
     five = models.FloatField(choices=POINTS, verbose_name='Przyspieszenie')
     six = models.FloatField(choices=POINTS, verbose_name='Agresja')
     seven = models.FloatField(choices=POINTS, verbose_name='Odpowiedzialność w grze')
-    eight = models.FloatField(choices=POINTS, verbose_name='Skłonność do przecinania linii przeciwnika(wejściem/podaniem)')
+    eight = models.FloatField\
+        (choices=POINTS, verbose_name='Skłonność do przecinania linii przeciwnika(wejściem/podaniem)')
     nine = models.FloatField(choices=POINTS, verbose_name='Pracowitość')
     ten = models.FloatField(choices=POINTS, verbose_name='Odbiór piłki')
     eleven = models.FloatField(choices=POINTS, verbose_name='Gra w powietrzu')
 
     @property
     def total(self):
-        return self.one + self.two + self.three
+        return self.one + self.two + self.three + self.four + self.five + self.six + self.seven + self.eight + self.nine\
+               + self.ten + self.eleven
+
+
+
+
+
 
 
 

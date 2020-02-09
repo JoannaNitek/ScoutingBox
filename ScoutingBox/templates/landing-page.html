@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block container %}
     {% load static %}
-
+    <style type="text/css">
+    .card-title {
+        font-weight: lighter;
+        text-transform: uppercase;
+    }
+    </style>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm p-3 mb-3 border-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="color: whitesmoke">  </span>
@@ -19,7 +24,7 @@
                 </li>
             </ul>
         </div>
-            <h6 class="nav justify-content-end">Witaj, {{ user }}!</h6>
+        <h6 class="nav justify-content-end">Witaj, {{ user }}!</h6>
     </nav>
 
     <div class="container">
@@ -28,17 +33,8 @@
             <div class="col-md-4 col-6">
                 <div class="card shadow-sm mb-1 border-light" style="overflow: auto; height: 250px">
                     <div class="card-body mb-1">
-                        <h6 class="card-title" style="color: #4f4f4f">Zawodnicy TOP</h6>
-                            <table class="table table text-center">
-                                <tbody>
-                                {% for p in players %}
-                                    <tr>
-                                        <th style="color: #00468B">{{ forloop.counter }}</th>
-                                        <td style="font-size: small"><a class="text-decoration-none" href="/player/{{ p.id }}" style="color: #4f4f4f">{{ p }}</a></td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                        <h6 class="card-title" style="color: #4f4f4f">Nadchodzące mecze</h6>
+
                     </div>
                 </div>
             </div>
@@ -97,100 +93,89 @@
                 </div>
             </div>
 
-        <div class="row">
-        <div class="col-md-4 col-6 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title" style="color: #4f4f4f">Zawodnik z największą oceną</h6>
-                </div>
-            </div>
-        </div>
+            <div class="row">
+                <div class="col-md-4 col-6 mt-4 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm mb-3 border-light">
+                        <div class="card-body">
+                            <h6 class="card-title" style="color: #4f4f4f">Zawodnik z największą oceną</h6>
+                        </div>
+                        <div class="card-body">{{ xyz|first }}{{ xyz|last }}</div>
 
-        <div class="col-md-8 col-12 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title" style="color: #4f4f4f">Nadchodzące mecze</h6>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-12 mt-4 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm mb-3 border-light">
+                        <div class="card-body">
+                            <h6 class="card-title" style="color: #4f4f4f">Zawodnicy TOP</h6>
+                            <table class="table table text-center">
+                            <tbody>
+                            {% for p in players %}
+                                <tr>
+                                    <th style="color: #00468B">{{ forloop.counter }}</th>
+                                    <td style="font-size: small"><a class="text-decoration-none" href="/player/{{ p.id }}" style="color: #4f4f4f">{{ p }}</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
             <div class="row">
-        <div class="col-md-4 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm   mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla scouta</h6>
-                    <h4 class="mt-5">{{ observ }}<small class="text-muted"> total</small></h4>
-                    {% for s in scout %}
-                    {{ s.email|cut:"\@.*" }}
-                    {% endfor %}
+                <div class="col-md-4 mt-4 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm   mb-3 border-light">
+                        <div class="card-body">
+                            <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla scouta</h6>
+                            <h4 class="mt-5">{{ observ }}<small class="text-muted"> total</small></h4>
+                            {% for s in scout %}
+                                {{ s|cut:"\@.*" }}
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-{#                {% for i in p %}#}
-{#                    {{ i }}#}
-{#                {% endfor %}#}
-{% for i in all %}
-{{ i.pr }}
-{% endfor %}
 
 
-        <div class="col-md-8 mt-4 d-flex align-items-stretch">
-            <div class="card w-100 shadow-sm   mb-3 border-light">
-                <div class="card-body">
-                    <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla zawodnika</h6>
-                    <canvas id="myChart"></canvas>
+                <div class="col-md-8 mt-4 d-flex align-items-stretch">
+                    <div class="card w-100 shadow-sm   mb-3 border-light">
+                        <div class="card-body">
+                            <h6 class="card-title" style="color: #4f4f4f">Ilość obserwacji dla zawodnika</h6>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-
-{% block chart %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-<script>
-var ctx = document.getElementById('myChart');
-var p = {{ i }}
-for (x in p) { x }
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [x],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    },
-});
-</script>
-    {% endblock %}
+        {% block chart %}
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+            <script>
+                var ctx = document.getElementById('myChart');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for key, value in f.items %}'{{ key }}',{% endfor %}],
+                        datasets: [{
+                            maxBarThickness: 15,
+                            label: 'Punkty z obserwacji',
+                            data: [{% for key, value in f.items %}parseFloat({{ value }}),{% endfor %}],
+                            backgroundColor: '#449dd1'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                    color: 'red'
+                                }
+                            }]
+                        }
+                    },
+                });
+            </script>
+        {% endblock %}
 
 {% endblock %}

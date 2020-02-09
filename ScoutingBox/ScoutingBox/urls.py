@@ -13,10 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, re_path, include
 from Box.views import LandingPageView, PlayerListView, AddPlayerView, \
-    PlayerView, ObservationFormView, PlayerEditView, ObservationFormPlayerView, AddCommentFormView, \
+    PlayerView, ObservationFormView, PlayerUpdateView, ObservationFormPlayerView, AddCommentFormView, \
     CommentDeleteView, PlayerDeleteView, CalendarList, CalendarAdd, CalendarDeleteView, ComparisonView
 
 from django.conf import settings
@@ -32,12 +33,12 @@ urlpatterns = [
     path('ScoutingBox/', LandingPageView.as_view()),
     path('players/', PlayerListView.as_view()),
     re_path('add_player/', AddPlayerView.as_view()),
-    re_path(r'^player/(?P<player_id>(\d)+)', PlayerView.as_view()),
+    url(r'^player/(?P<player_id>(\d)+)', PlayerView.as_view(), name='player'),
     path('form/', ObservationFormView.as_view()),
     re_path(r'^form/(?P<player_id>(\d)+)', ObservationFormPlayerView.as_view()),
     path('calendar/', CalendarList.as_view()),
     path('calendar_add/', CalendarAdd.as_view()),
-    re_path(r'^edit_player/(?P<player_id>(\d)+)', PlayerEditView.as_view()),
+    url(r'^edit_player/(?P<pk>(\d)+)', PlayerUpdateView.as_view(), name='update'),
     re_path(r'^delete_calendar/(?P<id>(\d)+)', CalendarDeleteView.as_view()),
     re_path(r'^add_comment/(?P<player_id>(\d)+)', AddCommentFormView.as_view()),
     re_path(r'^delete_comment/(?P<player_id>(\d)+)/(?P<com_id>(\d)+)', CommentDeleteView.as_view()),

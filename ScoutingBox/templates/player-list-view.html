@@ -45,7 +45,7 @@
                     <td>{{ player.club }}</td>
                     <td>{{ player.get_position_display }}</td>
                     <td>{{ player.get_status_display }}</td>
-                    <td>{{ player.agent|default_if_none:'' }}</td>
+                    <td>{{ player.agent|default_if_none:'' }}{{ player.observationform_set }}</td>
                     <td>{% for c in player.comments_set.all %}
                         <ul><li>{{ c }}</li></ul>
                     {% endfor %}</td>
